@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ef_cirl_ks 2
+  m_Shader: {fileID: 4800000, guid: c0dcad8538b8b3246a080a34fccc7b78, type: 3}
+  m_ShaderKeywords: _A_R_ON _NIUQUON_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DissovleTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MASKTEX:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Maintex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NIUQU_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex4coord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _A_R: 1
+    - _CullMode: 0
+    - _DissSC: 0
+    - _Dissovle_U_speed: 0
+    - _Dissovle_V_speed: 0
+    - _Disspower: 0
+    - _Dst: 10
+    - _InvFade: 0.01
+    - _MainTex_PannerSpeedU: 0
+    - _MainTex_PannerSpeedV: 0
+    - _Main_u_speed: 0
+    - _Main_v_speed: 0
+    - _NIUQUONOFF: 0
+    - _NIUQU_Power: 0
+    - _NiuquOn: 1
+    - _Niuqu_U_speed: 0
+    - _Niuqu_V_speed: 0
+    - _NoiseIntensity: 0
+    - _NoiseTex_PannerSpeedU: 0
+    - _NoiseTex_PannerSpeedV: 0
+    - _Sorft: 516.67
+    - __dirty: 0
+    - _one_UV: 0
+    - _one_UV_M: 0
+    - _smooth: 0.5
+    - _use_disslove: 0
+    m_Colors:
+    - _EainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Maincolor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0.5}
