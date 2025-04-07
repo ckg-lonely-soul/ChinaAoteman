@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game97\\game97_gamesel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game97\\game97_gamesel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\assets\\scripts\\game\\game00\\game00_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game00\\game00_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,10 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
               "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
               "RelativeToolTip": "Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAA8wEQAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-06T08:03:13.132Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Game00_Main.cs",
-              "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "ViewState": "AgIAAF4CAAAAAAAAAAAcwPwDAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T07:47:10.556Z"
             }
           ]
         }

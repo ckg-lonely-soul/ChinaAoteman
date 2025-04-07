@@ -8,7 +8,7 @@ Font:
   m_Name: Num_Coins
   serializedVersion: 5
   m_LineSpacing: 0.1
-  m_DefaultMaterial: {fileID: 2100000, guid: bbfb054be8f40ad4f82e6a426518e0a3, type: 2}
+  m_DefaultMaterial: {fileID: 2100000, guid: dbc917c19126fcd43b1d33a3bd0a7a47, type: 2}
   m_FontSize: 0
   m_Texture: {fileID: 0}
   m_AsciiStartOffset: 0
