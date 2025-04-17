@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +21,6 @@ public class Game97_GameSel : MonoBehaviour
     public Image image_Ok;
     public Image image_Ok2;
     public GameObject image_LogoTitle;
-    //public Image StartGame;
 
     public GameObject gamePageGroup;
     public GameObject selectKuang_Obj;
@@ -48,23 +46,19 @@ public class Game97_GameSel : MonoBehaviour
     //
     float pageTimer;
 
-    int scenceNum;
+    int sceneNum;
     int currentScene;
-    //  public List<int> buffScence = new List<int>();  //选择的5个场景的索引
-    public float minX, maxX, movePosX;      //最左边的坐标 最右边的坐标（小图片）  移动的坐标
+    public float minX, maxX, movePosX;      //最左边的坐标 最右边的坐标（小图片） 移动的坐标
     // float[] currentPosX;
     public Sprite leftSelected, rightSelected, leftGray, rightGray;//左右箭头的图片  修改处
     public Transform Dot;
     public Transform[] dot_s;   //5个点的数组
-                                // int lastDotIndex;
-                                //public float gameSelX;
-                                //
+
     public Image Button_NextPage;
     public Image Button_PreviousPage;
-    int arrowSelectSta = 0;
     //-1左，0没选,1右
+    int arrowSelectSta = 0;
 
-    //修改
     public Image Image_Title;
     public Text text_Time;
 
@@ -89,25 +83,6 @@ public class Game97_GameSel : MonoBehaviour
         }
         gameSelOne = GetComponentsInChildren<Game97_GameSelOne>();
         dot_s = Dot.GetComponentsInChildren<Transform>();
-
-        if (Main.COMPANY_NUM == 6 || Main.COMPANY_NUM == 7 || Main.COMPANY_NUM == 10)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/GameSelect/BackG");
-        }
-        else if (Main.COMPANY_NUM == 8)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-        }
-        else if (Main.COMPANY_NUM == 11)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/GameSelect/BackG");
-            image_TitleBox.gameObject.SetActive(false);
-        }
-        else if (Main.COMPANY_NUM == 12)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/GameSelect/BackG");
-            image_TitleBox.gameObject.SetActive(false);
-        }
     }
 
     readonly string[] strLanaguge = { "CN", "EN" };
@@ -117,76 +92,24 @@ public class Game97_GameSel : MonoBehaviour
         if (lanauage != Set.setVal.Language)
         {
             lanauage = Set.setVal.Language;
-            //
+
             string strCompany = "";
-            if (Main.COMPANY_NUM == 4 || Main.COMPANY_NUM == 5)
-            {
-                strCompany = "Company_" + Main.COMPANY_NUM.ToString("D2") + "/";
-            }
+
             Sprite sprite;
             for (int i = 0; i < gameSelOne.Length; i++)
             {
                 sprite = Resources.Load<Sprite>(strCompany + "Pic/Game97/GameSelect/GameName/" + Main.tab_GameId[i].ToString("D3") + "_" + strLanaguge[lanauage]);
                 gameSelOne[i].Update_GameName(sprite);
             }
-            //
+
             if (Set.setVal.Language == (int)en_Language.Chinese)
             {
                 image_LogoCN.gameObject.SetActive(true);
-                if (Main.COMPANY_NUM == 1)
-                {
-                    image_LogoCN.gameObject.SetActive(false);
-                }
                 image_LogoEN.gameObject.SetActive(false);
                 image_Ok.gameObject.SetActive(true);
                 image_Ok2.gameObject.SetActive(false);
-                //if (Main.COMPANY_NUM == 1 || Main.COMPANY_NUM == 10)
-                //{
-                //    image_LogoCN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_cn/0000");
-                //}
-                if(Main.COMPANY_NUM == 7 || Main.COMPANY_NUM == 6 || Main.COMPANY_NUM == 8)
-                {
-                    image_LogoCN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/GameSelect/Logo/Logo_CN");
-                    image_LogoCN.SetNativeSize();
-                    image_LogoCN.transform.localScale = Vector3.one * 0.75f;
-                    image_LogoCN.transform.localPosition = new Vector3(-490, 295);
-                }
-                else
-                {
-                    image_LogoCN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_cn/0000");
-                    if(Main.COMPANY_NUM == 11)
-                    {
-                        image_LogoCN.transform.localPosition = new Vector3(-480f, 280f);
-                    }
-                    if (Main.COMPANY_NUM == 12)
-                    {
-                        image_LogoCN.SetNativeSize();
-                        image_LogoCN.transform.localScale = Vector3.one * 0.4f;
-                        image_LogoCN.transform.localPosition = new Vector3(-480f, 285f);
-                    }
-                }
-                if (Main.COMPANY_NUM == 4)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_04/Pic/Game97/GameSelect/Title_CN");
-                    Image_Title.transform.localScale = Vector3.one;
-                }
-                else if(Main.COMPANY_NUM == 11)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_11/Pic/Game97/GameSelect/Title/Title_CN");
-                    Image_Title.transform.localScale = Vector3.one;
-                }
-                else if (Main.COMPANY_NUM == 12)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_12/Pic/Game97/GameSelect/Title/Title_CN");
-                    Image_Title.transform.localScale = Vector3.one;
-                    image_Ok.transform.parent.GetComponent<Image>().enabled = false;
-                    image_Ok.sprite = Resources.Load<Sprite>("Company_12/Pic/Game97/GameSelect/Queding/Queding_CN");
-                    image_Ok.SetNativeSize();
-                }
-                else
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_00/Common/GameUI/cn/0000");
-                }
+                image_LogoCN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_cn/0000");
+                sprite_Title = Resources.Load<Sprite>("Company_00/Common/GameUI/cn/0000");
             }
             else
             {
@@ -194,53 +117,8 @@ public class Game97_GameSel : MonoBehaviour
                 image_Ok2.gameObject.SetActive(true);
                 image_LogoCN.gameObject.SetActive(false);
                 image_LogoEN.gameObject.SetActive(true);
-                if (Main.COMPANY_NUM == 1)
-                {
-                    image_LogoEN.gameObject.SetActive(false);
-                }
-                //if (Main.COMPANY_NUM == 1 || Main.COMPANY_NUM == 10)
-                //{
-                //    image_LogoEN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_en/0000");
-                //}
-                if(Main.COMPANY_NUM == 7 || Main.COMPANY_NUM == 6 || Main.COMPANY_NUM == 8)
-                {
-                    image_LogoEN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/GameSelect/Logo/Logo_EN");
-                    image_LogoEN.SetNativeSize();
-                    image_LogoEN.transform.localScale = Vector3.one * 0.75f;
-                    image_LogoEN.transform.localPosition = new Vector3(-475, 295);
-                }
-                else
-                {
-                    image_LogoEN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_en/0000");
-                    if (Main.COMPANY_NUM == 12)
-                    {
-                        image_LogoEN.SetNativeSize();
-                        image_LogoEN.transform.localScale = Vector3.one * 0.3f;
-                        image_LogoEN.transform.localPosition = new Vector3(-480f, 285f);
-                    }
-                }
-                if (Main.COMPANY_NUM == 4)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_04/Pic/Game97/GameSelect/Title_EN");
-                    Image_Title.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-                }
-                else if (Main.COMPANY_NUM == 11)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_11/Pic/Game97/GameSelect/Title/Title_EN");
-                    Image_Title.transform.localScale = Vector3.one;
-                }
-                else if (Main.COMPANY_NUM == 12)
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_12/Pic/Game97/GameSelect/Title/Title_EN");
-                    Image_Title.transform.localScale = Vector3.one;
-                    image_Ok.transform.parent.GetComponent<Image>().enabled = false;
-                    image_Ok2.sprite = Resources.Load<Sprite>("Company_12/Pic/Game97/GameSelect/Queding/Queding_EN");
-                    image_Ok2.SetNativeSize();
-                }
-                else
-                {
-                    sprite_Title = Resources.Load<Sprite>("Company_00/Common/GameUI/en/0000");
-                }
+                image_LogoEN.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG_en/0000");
+                sprite_Title = Resources.Load<Sprite>("Company_00/Common/GameUI/en/0000");
             }
             Image_Title.sprite = sprite_Title;
             Image_Title.SetNativeSize();
@@ -251,18 +129,15 @@ public class Game97_GameSel : MonoBehaviour
     {
         //修改图标--语言
         CheckLanguage();
-        //
         selectId = -1;
         // 确定选择游戏的玩家，玩家1优先
         playerId = -1;
-        scenceNum = 0;
+        sceneNum = 0;
         selectTime = 20f;
         shootWaterTime = 0;
         currentScene = 2;
         currGamePage = 0;
-        // buffScence = new List<int>();
         UpdateGameSelectInit();
-        //UpdateCurrentSelect();
         Update_GameSelOneSta();
 
         if (maxGamePage <= 1)
@@ -276,41 +151,6 @@ public class Game97_GameSel : MonoBehaviour
             nextPage.gameObject.SetActive(true);
         }
 
-        //
-        if (Main.COMPANY_NUM == 1)
-        {
-            // 枪神
-            ChangeStatue(en_GameSelSta.Idle);
-            image_LogoTitle.SetActive(true);
-#if IO_LOCAL
-            if (Set.setVal.ChildrenSong == 0)
-            {
-                audioSource_BackG.clip = SoundManager.Instance.levelBgm[Random.Range(0, SoundManager.Instance.levelBgm.Length)];
-            }
-            else
-            {
-                if (Set.setVal.Language == (int)en_Language.Chinese)
-                {
-                    audioSource_BackG.clip = SoundManager.Instance.gunGodBgmCN[Random.Range(0, SoundManager.Instance.gunGodBgmCN.Length)];
-                }
-                else
-                {
-                    audioSource_BackG.clip = SoundManager.Instance.gunGodBgmEN[Random.Range(0, SoundManager.Instance.gunGodBgmEN.Length)];
-                }
-            }
-            audioSource_BackG.volume = 0.6f;
-#endif
-            if (Set.setVal.DeskMusic == 0 && game97_Main.IsCanPlay() == false)
-            {
-                audioSource_BackG.Stop();
-
-            }
-            else
-            {
-                audioSource_BackG.Play();
-            }
-            return;
-        }
         StartSelect();
     }
 
@@ -374,11 +214,6 @@ public class Game97_GameSel : MonoBehaviour
 
         runTime = 20;
         timeOut = 20;
-
-        //#if UNITY_EDITOR
-        //        runTime = 4;
-        //        timeOut = 4;
-        //#endif
     }
 
     void Update()
@@ -391,7 +226,6 @@ public class Game97_GameSel : MonoBehaviour
                     StartSelect();
                 }
                 break;
-
             case en_GameSelSta.SelectPlayer:
                 if (runTime > 0)
                 {
@@ -430,7 +264,7 @@ public class Game97_GameSel : MonoBehaviour
                 }
                 break;
             case en_GameSelSta.Selecting:
-                if(Set.setVal.InOutMode == (int)en_InOutMode.OneInOneOut)
+                if (Set.setVal.InOutMode == (int)en_InOutMode.OneInOneOut)
                 {
                     for (int i = 0; i < Main.MAX_PLAYER; i++)
                     {
@@ -512,33 +346,14 @@ public class Game97_GameSel : MonoBehaviour
                 {
                     ChangeStatue(en_GameSelSta.NextPage);
                     break;
-                }// 新
-
+                }
                 break;
-
-
             case en_GameSelSta.EnterGame:
-                #region
-                //gameSelOne[selectId].transform.localPosition = Vector3.MoveTowards(gameSelOne[selectId].transform.localPosition, new Vector3(0, 0, 0), 1000 * Time.deltaTime);
-                //if (scale < 1)
-                //{
-                //    scale += Time.deltaTime;
-                //    if (scale > 1)
-                //    {
-                //        scale = 1;
-                //    }
-                //    gameSelOne[selectId].transform.localScale = new Vector3(scale, scale, scale);
-                //}
-                //else
-                //{
-                #endregion
                 runTime += Time.deltaTime;
                 if (runTime >= 0.5f)
                 {
-                    //Debug.Log("EnterGame: " + selectId);
                     game97_Main.EnterGame(Main.tab_GameId[selectId]);
                 }
-                //}
                 break;
             case en_GameSelSta.PreviousPage:
             case en_GameSelSta.NextPage:
@@ -565,7 +380,6 @@ public class Game97_GameSel : MonoBehaviour
                     ChangeStatue(en_GameSelSta.Selecting);
                 }
                 break;
-
         }
     }
 
@@ -575,7 +389,6 @@ public class Game97_GameSel : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log(sta);
 #endif
-        //runTime = 0;
         Key.Clear();
 
         image_PressToStart.gameObject.SetActive(false);
@@ -585,7 +398,6 @@ public class Game97_GameSel : MonoBehaviour
             case en_GameSelSta.Idle:
                 Image_Title.gameObject.SetActive(false);
                 break;
-
             case en_GameSelSta.SelectPlayer:
                 image_PressToStart.gameObject.SetActive(true);
                 runTime = selectTime;
@@ -594,13 +406,6 @@ public class Game97_GameSel : MonoBehaviour
                 text_Time.text = (timeOut / 60).ToString("D2") + ":" + (timeOut % 60).ToString("D2");
                 break;
             case en_GameSelSta.Selecting:
-                //image_NextPage = disGameSelone[0].image_BackG;
-                //image_PreviousPage = disGameSelone[0].image_BackG;
-                //if (runTime == 0)
-                //{
-                //    runTime = 20;
-                //    timeOut = 20;
-                //}
                 if (Set.setVal.GunMode == (int)en_GunMode.ShootWater)
                 {
                     IO.GunMotorStart(playerId);
@@ -619,7 +424,7 @@ public class Game97_GameSel : MonoBehaviour
                     IO.GunMotorStart(playerId);
 #endif
                 }
-                
+
                 previousPage.GetComponent<Image>().sprite = rightGray;//左右调换
                 nextPage.GetComponent<Image>().sprite = leftGray;
                 maxX = (list_GameSelOne.Count - 6) * 20;//420
@@ -628,7 +433,7 @@ public class Game97_GameSel : MonoBehaviour
                 for (int i = 0; i < Main.MAX_PLAYER; i++)
                 {
                     if (FjData.g_Fj[i].Playing)
-                    {//每个玩家如果在游戏就不显示
+                    {   //每个玩家如果在游戏就不显示
                         game97_Main.playerUI[i].SetCheckPleaseCoinIn(false);
                     }
                     else
@@ -641,16 +446,10 @@ public class Game97_GameSel : MonoBehaviour
             runTime = 2;
             timeOut = 2;
 #endif
-                // num_Time.UpdateShow(timeOut);
-                //UpdateGameSelect();
-                //Update_GameSelOneSta();
                 break;
             case en_GameSelSta.EnterGame:
-
                 break;
-
             case en_GameSelSta.NextPage://右键  按钮
-                                        //Debug.Log("NextPage");
                 currentScene++;
                 currGamePage++;
                 if (currGamePage >= maxGamePage)
@@ -661,9 +460,7 @@ public class Game97_GameSel : MonoBehaviour
                 }
                 gamePageGroup.transform.localPosition = new Vector3(-1280, 0, 0);
                 break;
-
             case en_GameSelSta.PreviousPage://左键  按钮
-                                            //Debug.Log("PreviousPage");
                 currentScene--;
                 currGamePage--;
                 if (currGamePage < 0)
@@ -713,7 +510,6 @@ public class Game97_GameSel : MonoBehaviour
         {
             Update_ArrowSelectStatue(0);
         }
-
     }
 
     void Update_ArrowSelectStatue(int no)
@@ -738,22 +534,14 @@ public class Game97_GameSel : MonoBehaviour
 
     void UpdateGameSelectInit()
     {
-        int no = 0;		//0~5
+        int no = 0;	//0~5
         int id;
         int maxOnePage = 6;
         int starty = 100;
         int disx = 340;
         int disy = 230;
-        if (Main.COMPANY_NUM == 5)
-        {
-            maxOnePage = 9;
-            starty = 160;
-            disx = 320;
-            disy = 160;
-        }
         maxCurrGameSel = 0; //show
         maxGamePage = 0;
-        //Debug.Log(gameSelOne.Length);
 
         list_GameSelOne.Clear();
         for (int i = 0; i < gameSelOne.Length; i++)
@@ -779,7 +567,6 @@ public class Game97_GameSel : MonoBehaviour
                 {
                     no = 0;
                     maxGamePage++;
-                    //Debug.Log(maxGamePage);
                 }
                 gameSelOne[i].transform.SetParent(gamePage[maxGamePage].transform);
                 gameSelOne[i].transform.localPosition = new Vector3(((no % 3) - 1) * disx, starty - (no / 3) * disy, 0);
@@ -796,8 +583,7 @@ public class Game97_GameSel : MonoBehaviour
         for (int i = 0; i < maxGamePage; i++)
         {
             gamePage[i].transform.localPosition = new Vector3(i * 1280, 0, 0);
-        }
-        //Debug.Log (gameSelOne.Length);		
+        }		
         currGamePage = 0;
     }
 

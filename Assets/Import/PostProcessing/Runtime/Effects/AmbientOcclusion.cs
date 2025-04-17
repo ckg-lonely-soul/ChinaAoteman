@@ -56,13 +56,13 @@ namespace UnityEngine.Rendering.PostProcessing
     /// A volume parameter holding a <see cref="AmbientOcclusionMode"/> value.
     /// </summary>
     [Serializable]
-    public sealed class AmbientOcclusionModeParameter : ParameterOverride<AmbientOcclusionMode> {}
+    public sealed class AmbientOcclusionModeParameter : ParameterOverride<AmbientOcclusionMode> { }
 
     /// <summary>
     /// A volume parameter holding a <see cref="AmbientOcclusionQuality"/> value.
     /// </summary>
     [Serializable]
-    public sealed class AmbientOcclusionQualityParameter : ParameterOverride<AmbientOcclusionQuality> {}
+    public sealed class AmbientOcclusionQualityParameter : ParameterOverride<AmbientOcclusionQuality> { }
 
     /// <summary>
     /// This class holds settings for the Ambient Occlusion effect.
@@ -77,7 +77,7 @@ namespace UnityEngine.Rendering.PostProcessing
         /// The ambient occlusion method to use.
         /// </summary>
         [Tooltip("The ambient occlusion method to use. \"Multi Scale Volumetric Obscurance\" is higher quality and faster on desktop & console platforms but requires compute shader support.")]
-        
+
         public AmbientOcclusionModeParameter mode = new AmbientOcclusionModeParameter { value = AmbientOcclusionMode.MultiScaleVolumetricObscurance };
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace UnityEngine.Rendering.PostProcessing
         /// A custom color to use for the ambient occlusion.
         /// </summary>
         [ColorUsage(false), Tooltip("The custom color to use for the ambient occlusion. The default is black.")]
-        
+
         public ColorParameter color = new ColorParameter { value = Color.black };
 
         /// <summary>

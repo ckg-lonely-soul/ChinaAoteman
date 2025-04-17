@@ -120,10 +120,10 @@ namespace UnityEngine.Rendering.PostProcessing
             // 3D texture blending is a special case and only works on compute enabled platforms
             if (is3D)
             {
-                int dpth = @from is Texture3D ? ((Texture3D) @from).depth : ((RenderTexture) @from).volumeDepth;
+                int dpth = @from is Texture3D ? ((Texture3D)@from).depth : ((RenderTexture)@from).volumeDepth;
                 int size = Mathf.Max(from.width, from.height);
                 size = Mathf.Max(size, dpth);
-                
+
                 rt = Get(RenderTextureFormat.ARGBHalf, from.width, from.height, dpth, true, true);
 
                 var compute = m_Resources.computeShaders.texture3dLerp;
@@ -177,10 +177,10 @@ namespace UnityEngine.Rendering.PostProcessing
             // 3D texture blending is a special case and only works on compute enabled platforms
             if (is3D)
             {
-                int dpth = @from is Texture3D ? ((Texture3D) @from).depth : ((RenderTexture) @from).volumeDepth;
+                int dpth = @from is Texture3D ? ((Texture3D)@from).depth : ((RenderTexture)@from).volumeDepth;
                 int size = Mathf.Max(from.width, from.height);
                 size = Mathf.Max(size, dpth);
-                
+
                 rt = Get(RenderTextureFormat.ARGBHalf, from.width, from.height, dpth, true, true);
 
                 var compute = m_Resources.computeShaders.texture3dLerp;
@@ -213,8 +213,8 @@ namespace UnityEngine.Rendering.PostProcessing
 
             return rt;
         }
-        
-        
+
+
         internal void Clear()
         {
             foreach (var rt in m_Actives)

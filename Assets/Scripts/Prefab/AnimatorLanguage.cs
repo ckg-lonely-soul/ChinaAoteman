@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class AnimatorLanguage : MonoBehaviour {
+public class AnimatorLanguage : MonoBehaviour
+{
 
     Animator animator;
-    void Awake() {
+    void Awake()
+    {
         animator = GetComponent<Animator>();
     }
 
-    void OnEnable() {
-        if (Set.setVal.Language == (int)en_Language.Chinese) {
+    void OnEnable()
+    {
+        if (Set.setVal.Language == (int)en_Language.Chinese)
+        {
             animator.SetTrigger("Run_C");
-        } else {
+        }
+        else
+        {
             animator.SetTrigger("Run_E");
         }
     }

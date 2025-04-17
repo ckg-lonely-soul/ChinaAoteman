@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-using UnityEditorInternal;
-using System.IO;
 
 namespace UnityEditor.Rendering.PostProcessing
 {
-    using SerializedBundleRef = PostProcessLayer.SerializedBundleRef;
     using EXRFlags = Texture2D.EXRFlags;
+    using SerializedBundleRef = PostProcessLayer.SerializedBundleRef;
 
     [CanEditMultipleObjects, CustomEditor(typeof(PostProcessLayer))]
     sealed class PostProcessLayerEditor : BaseEditor<PostProcessLayer>
@@ -88,10 +88,10 @@ namespace UnityEditor.Rendering.PostProcessing
 
             var camera = m_Target.GetComponent<Camera>();
 
-            #if !UNITY_2017_2_OR_NEWER
+#if !UNITY_2017_2_OR_NEWER
             if (RuntimeUtilities.isSinglePassStereoSelected)
                 EditorGUILayout.HelpBox("Unity 2017.2+ required for full Single-pass stereo rendering support.", MessageType.Warning);
-            #endif
+#endif
 
             DoVolumeBlending();
             DoAntialiasing();
@@ -158,10 +158,10 @@ namespace UnityEditor.Rendering.PostProcessing
 
                 if (m_AntialiasingMode.intValue == (int)PostProcessLayer.Antialiasing.TemporalAntialiasing)
                 {
-                    #if !UNITY_2017_3_OR_NEWER
+#if !UNITY_2017_3_OR_NEWER
                     if (RuntimeUtilities.isSinglePassStereoSelected)
                         EditorGUILayout.HelpBox("TAA requires Unity 2017.3+ for Single-pass stereo rendering support.", MessageType.Warning);
-                    #endif
+#endif
 
                     EditorGUILayout.PropertyField(m_TaaJitterSpread);
                     EditorGUILayout.PropertyField(m_TaaStationaryBlending);

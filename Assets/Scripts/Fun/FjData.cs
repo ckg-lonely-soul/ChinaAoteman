@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public struct Acc
+﻿public struct Acc
 {
     public int CoinIn;          //总投币
     public int BillIn;          //总投纸币

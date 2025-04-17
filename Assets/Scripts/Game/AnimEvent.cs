@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AnimEvent : MonoBehaviour
 {
@@ -18,6 +16,7 @@ public class AnimEvent : MonoBehaviour
 
     [HideInInspector]
     public int firePosId = 0;
+    public int particleIndex = 0;
     public void Clear()
     {
         event_IdlePlayEnd = false;
@@ -45,10 +44,10 @@ public class AnimEvent : MonoBehaviour
     //public void Event_AttackEffect() {
     //    event_AttackEffect = true;
     //}//
-    public void Event_AttackEffect(int fireposid)
+    public void Event_AttackEffect(int _particleIndex)
     {
         event_AttackEffect = true;
-        firePosId = fireposid;
+        particleIndex = _particleIndex;
     }//
     public void Event_AttackPlayEnd()
     {

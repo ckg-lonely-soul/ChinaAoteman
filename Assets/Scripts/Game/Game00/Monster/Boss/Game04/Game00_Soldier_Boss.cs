@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 public class Game00_Soldier_Boss : MonoBehaviour
 {
@@ -43,7 +41,7 @@ public class Game00_Soldier_Boss : MonoBehaviour
     public int runIndex;
     public float rollSpeed;
     public int nextIndex;
-   // public GameObject cube;
+    // public GameObject cube;
     // Use this for initialization
     void Start()
     {
@@ -262,9 +260,9 @@ public class Game00_Soldier_Boss : MonoBehaviour
                 }
                 else if (runStatue == 2)
                 {
-                    targetPos = playersObj.transform.position + playersObj.transform.forward*2f;
-                 //   cube.transform.parent = null;
-                   // cube.transform.position = targetPos;
+                    targetPos = playersObj.transform.position + playersObj.transform.forward * 2f;
+                    //   cube.transform.parent = null;
+                    // cube.transform.position = targetPos;
                     targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
 
 
@@ -322,7 +320,7 @@ public class Game00_Soldier_Boss : MonoBehaviour
                 if ((animatorInfo.normalizedTime > 0.7f) && (animatorInfo.IsName("Roll")))
                 {
                     monster.tag = "Monster";
-                    float _distance = Vector3.Distance(transform.position, playersObj.transform.position + playersObj.transform.forward*2);
+                    float _distance = Vector3.Distance(transform.position, playersObj.transform.position + playersObj.transform.forward * 2);
                     if (nextIndex == 0 || _distance < 2f)
                     {
                         attackSkillId = 0;

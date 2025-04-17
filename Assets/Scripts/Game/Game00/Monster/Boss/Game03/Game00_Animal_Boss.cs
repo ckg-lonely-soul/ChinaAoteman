@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 public class Game00_Animal_Boss : MonoBehaviour
 {
@@ -242,8 +240,8 @@ public class Game00_Animal_Boss : MonoBehaviour
                                 {
                                     if (Vector3.Distance(transform.position, currMoveTargetPos) < monster.minAttackDistance)
                                     {
-                                       // attackSkillId = 0;
-                                      //  attackState = -1;
+                                        // attackSkillId = 0;
+                                        //  attackState = -1;
                                         StopCheck();
                                         transform.rotation = Quaternion.Slerp(transform.rotation,
           Quaternion.LookRotation(playersObj.transform.position - transform.position, Vector3.up), 2 * Time.deltaTime);
@@ -303,8 +301,8 @@ public class Game00_Animal_Boss : MonoBehaviour
                                     {
                                         if (Vector3.Distance(transform.position, currMoveTargetPos) < monster.minAttackDistance)
                                         {
-                                          //  attackSkillId = 0;
-                                           // attackState = -1;
+                                            //  attackSkillId = 0;
+                                            // attackState = -1;
                                             StopCheck();
                                             //transform.LookAt(playersObj.transform.position);
                                             transform.rotation = Quaternion.Slerp(transform.rotation,

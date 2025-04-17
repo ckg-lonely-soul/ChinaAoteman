@@ -73,7 +73,7 @@ namespace UnityEngine.Rendering.PostProcessing
 
             cmd.ReleaseTemporaryRT(ShaderIDs.SMAA_Flip);
             cmd.ReleaseTemporaryRT(ShaderIDs.SMAA_Flop);
-            
+
             cmd.EndSample("SubpixelMorphologicalAntialiasing");
         }
     }

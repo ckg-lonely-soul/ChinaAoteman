@@ -48,7 +48,7 @@ namespace UnityEditor.Rendering.PostProcessing
         {
             Assert.IsNotNull(asset);
             Assert.IsNotNull(serializedObject);
-            
+
             this.asset = asset;
             m_SerializedObject = serializedObject;
             m_SettingsProperty = serializedObject.FindProperty("settings");
@@ -281,7 +281,7 @@ namespace UnityEditor.Rendering.PostProcessing
 
             if (id < m_Editors.Count)
                 m_Editors[id].baseProperty.isExpanded = nextFoldoutState;
-            
+
             m_SerializedObject.ApplyModifiedProperties();
 
             // Destroy the setting object after ApplyModifiedProperties(). If we do it before, redo
@@ -328,7 +328,7 @@ namespace UnityEditor.Rendering.PostProcessing
             // Same as RemoveEffectOverride, destroy at the end so it's recreated first on Undo to
             // make sure the GUID exists before undoing the list state
             Undo.DestroyObjectImmediate(prevSettings);
-            
+
             // Force save / refresh
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();

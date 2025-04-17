@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
-using UnityEngine.UI;
 
 public class QRcodeDraw : MonoBehaviour
 {
@@ -53,21 +52,6 @@ public class QRcodeDraw : MonoBehaviour
         return writer.Write(textForEncoding);
     }
 
-    //public void ShowCode0(string textForEncoding) {
-    //    encoded = new Texture2D(256, 256);
-    //    if (textForEncoding.Length > 0) {
-    //        //二维码写入图片
-    //        var color32 = Encode(textForEncoding, encoded.width, encoded.height);
-    //        encoded.SetPixels32(color32);
-    //        encoded.Apply();
-    //        //重新赋值一张图，计算大小,避免白色边框过大
-    //        Texture2D encoded1;
-    //        encoded1 = new Texture2D(96, 96);//创建目标图片大小
-    //        encoded1.SetPixels(encoded.GetPixels(32, 32, 96, 96));
-    //        encoded1.Apply();
-    //        QRImage.texture = encoded1;
-    //    }
-    //}
     public void ShowCode(string textForEncoding)
     {
         encoded = new Texture2D(256, 256);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayOnce_Particles : MonoBehaviour
 {
@@ -29,6 +27,6 @@ public class PlayOnce_Particles : MonoBehaviour
         {
             Destroy(gameObject);
         }
-       
+
     }
 }

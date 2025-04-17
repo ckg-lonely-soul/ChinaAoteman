@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 #if NEW_IO
 public enum KeyNum
@@ -564,7 +563,7 @@ public class Key
 #if IO_GUN1
         return false;
 #else
-        return KEY_Pressed (KEY_PLAYER2_RESET);
+        return KEY_Pressed(KEY_PLAYER2_RESET);
 #endif
     }
     public static bool KEYFJ_BackPressed()
@@ -572,7 +571,7 @@ public class Key
 #if IO_GUN1
         return false;
 #else
-        return KEY_Pressed (KEY_BACK);
+        return KEY_Pressed(KEY_BACK);
 #endif
     }
 

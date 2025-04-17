@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -76,7 +75,7 @@ public class Game00_Monster_JiQiRen : MonoBehaviour
     //void OnEnable() {
     //    ChangeStatue(en_MonsterSta.Attack);
     //}
-    
+
 
 
     void Update()
@@ -314,10 +313,10 @@ public class Game00_Monster_JiQiRen : MonoBehaviour
                             break;
                         }
                         targetPos = monster.attackPos.transform.position;
-                        //targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+                        Vector3 _targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
                         RunCheck(targetPos);
                         _distance = Vector3.Distance(transform.position, targetPos);
-                        if (Vector3.Distance(transform.position, targetPos) < 0.15f)
+                        if (Vector3.Distance(transform.position, _targetPos) < 1f)
                         {
                             runStatue = 2;
                             break;
@@ -328,9 +327,9 @@ public class Game00_Monster_JiQiRen : MonoBehaviour
                     if (monster.attackPos != null)
                     {
                         targetPos = monster.attackPos.transform.position;
+                        Vector3 _targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
                         RunCheck(targetPos);
-                        //Debug.Log(gameObject.name + Vector3.Distance(transform.position, targetPos));
-                        if (Vector3.Distance(transform.position, targetPos) < 0.2f)
+                        if (Vector3.Distance(transform.position, _targetPos) < 1f)
                         {
                             runStatue = 2;
                             break;
@@ -482,6 +481,14 @@ public class Game00_Monster_JiQiRen : MonoBehaviour
                         }
                     }
                     else
+                    {
+                        playersObj = gameMain.players_Obj;
+                        ChangeStatue(en_MonsterSta.Run);
+                    }
+                }
+                else if (monster.attackDistanceType == en_MonsterAttackDistanceType.Far)
+                {
+                    if (monster.attackPos != null)
                     {
                         playersObj = gameMain.players_Obj;
                         ChangeStatue(en_MonsterSta.Run);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Game97_PlayerScoreResult : MonoBehaviour
@@ -9,7 +7,7 @@ public class Game97_PlayerScoreResult : MonoBehaviour
     public Image image_ScoreText;       // 得分
     public Image image_WinsText;       // 得分
     public Image image_KillNum;         // 击败敌人数
-    public Image image_PassTime;        // 
+    public Image image_PassTime;        
     public Image image_PlayLevel;
     public Num num_Score;
     public Num num_Wins;

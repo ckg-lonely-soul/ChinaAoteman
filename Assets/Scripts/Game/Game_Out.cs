@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public enum en_OutSta
@@ -29,13 +27,11 @@ public class Game_Out : MonoBehaviour
             sprite_UI = Resources.LoadAll<Sprite>("Company_00/Common/Out_Text");
         }
         Id = no;
-
         currOutNum = FjData.g_Fj[Id].Wins;
         num_Out.UpdateShow(currOutNum);
         ChangeStatue(en_OutSta.Idle);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Main.statue < en_MainStatue.Game_97)
@@ -94,7 +90,6 @@ public class Game_Out : MonoBehaviour
     {
         statue = sta;
         runTime = 0;
-
         image_OutText.gameObject.SetActive(false);
         num_Out.gameObject.SetActive(false);
 

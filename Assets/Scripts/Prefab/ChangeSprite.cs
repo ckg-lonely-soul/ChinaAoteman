@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using System;
+﻿using UnityEngine;
 
 
 // Sprite 精灵的变换 ; 移动,缩放,透明度; 

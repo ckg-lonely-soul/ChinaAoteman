@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Menu_AdcVerify : MonoBehaviour
@@ -111,7 +109,6 @@ public class Menu_AdcVerify : MonoBehaviour
     //
     void ChagneStatue(en_CusorVerifySta sta)
     {
-        //      print("ChangeToStatue: "+ sta.ToString());
         statue = sta;
         Key.Clear();
         switch (statue)

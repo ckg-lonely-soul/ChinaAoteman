@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RenderHeads.Media.AVProVideo;
 using System.IO;
 using UnityEngine;
-using RenderHeads.Media.AVProVideo;
 
 public class Game_MediaPlayer : MonoBehaviour
 {
@@ -56,10 +54,10 @@ public class Game_MediaPlayer : MonoBehaviour
 
     void Update()
     {
-        if (volumeInt != VolumeCotroy.sysVolume)
+        if (volumeInt != VolumeControl.sysVolume)
         {
-            volumeInt = VolumeCotroy.sysVolume;
-            volume = (float)volumeInt / VolumeCotroy.SET_c_MaxSysVolume;
+            volumeInt = VolumeControl.sysVolume;
+            volume = (float)volumeInt / VolumeControl.SET_c_MaxSysVolume;
         }
         if (_mediaPlayer.Control != null)
         {
@@ -109,7 +107,7 @@ public class Game_MediaPlayer : MonoBehaviour
         // 默认视频
         int maxVideo = tab_MaxDefaultVideo[Set.setVal.Language];
         defVideoId = (defVideoId + 1) % maxVideo;
-        if(defVideoId == 0)
+        if (defVideoId == 0)
         {
             defVideoId = 1;
         }
@@ -126,10 +124,10 @@ public class Game_MediaPlayer : MonoBehaviour
     int volumeInt = -1;
     void Update_Volume()
     {
-        volumeInt = VolumeCotroy.sysVolume;
+        volumeInt = VolumeControl.sysVolume;
         if (_mediaPlayer.Control != null)
         {
-            volume = (float)volumeInt / VolumeCotroy.SET_c_MaxSysVolume;
+            volume = (float)volumeInt / VolumeControl.SET_c_MaxSysVolume;
             _mediaPlayer.Control.SetVolume(Mathf.Clamp(volume, 0, 1));
         }
     }

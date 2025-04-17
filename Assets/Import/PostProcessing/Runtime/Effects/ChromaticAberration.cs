@@ -28,7 +28,7 @@ namespace UnityEngine.Rendering.PostProcessing
         [FormerlySerializedAs("mobileOptimized")]
         [Tooltip("Boost performances by lowering the effect quality. This settings is meant to be used on mobile and other low-end platforms but can also provide a nice performance boost on desktops and consoles.")]
         public BoolParameter fastMode = new BoolParameter { value = false };
-        
+
         /// <inheritdoc />
         public override bool IsEnabledAndSupported(PostProcessRenderContext context)
         {
@@ -61,7 +61,7 @@ namespace UnityEngine.Rendering.PostProcessing
                         hideFlags = HideFlags.DontSave
                     };
 
-                    m_InternalSpectralLut.SetPixels(new []
+                    m_InternalSpectralLut.SetPixels(new[]
                     {
                         new Color(1f, 0f, 0f),
                         new Color(0f, 1f, 0f),
@@ -73,7 +73,7 @@ namespace UnityEngine.Rendering.PostProcessing
 
                 spectralLut = m_InternalSpectralLut;
             }
-            
+
             var sheet = context.uberSheet;
             bool fastMode = settings.fastMode || SystemInfo.graphicsDeviceType == GraphicsDeviceType.OpenGLES2;
 

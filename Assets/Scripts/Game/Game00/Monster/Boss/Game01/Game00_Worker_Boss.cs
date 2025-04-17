@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 public class Game00_Worker_Boss : MonoBehaviour
 {
@@ -346,7 +344,7 @@ public class Game00_Worker_Boss : MonoBehaviour
                     targetPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
                     RunCheck(targetPos);
                     distance = Vector3.Distance(transform.position, targetPos);
-                    if (distance < startQuickDis && distance>3.5f)
+                    if (distance < startQuickDis && distance > 3.5f)
                     {
                         runIndex = -1;
                         nextIndex = 0;
@@ -371,7 +369,7 @@ public class Game00_Worker_Boss : MonoBehaviour
                     if (Vector3.Distance(transform.position, playersObj.transform.position + playersObj.transform.forward * 2f) < 2.5f)
                     {
 
-                        attackSkillId = Random.Range(1,3);
+                        attackSkillId = Random.Range(1, 3);
                         nextIndex = -1;
                         ChangeStatue(en_MonsterSta.Attack);
                         break;

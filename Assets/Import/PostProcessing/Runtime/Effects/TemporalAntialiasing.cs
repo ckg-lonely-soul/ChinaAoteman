@@ -67,7 +67,7 @@ namespace UnityEngine.Rendering.PostProcessing
         const int k_NumHistoryTextures = 2;
         readonly RenderTexture[][] m_HistoryTextures = new RenderTexture[k_NumEyes][];
 
-        readonly int[] m_HistoryPingPong = new int [k_NumEyes];
+        readonly int[] m_HistoryPingPong = new int[k_NumEyes];
 
         public bool IsSupported()
         {
@@ -244,7 +244,7 @@ namespace UnityEngine.Rendering.PostProcessing
                 {
                     if (m_HistoryTextures[i] == null)
                         continue;
-                    
+
                     for (int j = 0; j < m_HistoryTextures[i].Length; j++)
                     {
                         RenderTexture.ReleaseTemporary(m_HistoryTextures[i][j]);
@@ -258,7 +258,7 @@ namespace UnityEngine.Rendering.PostProcessing
             sampleIndex = 0;
             m_HistoryPingPong[0] = 0;
             m_HistoryPingPong[1] = 0;
-            
+
             ResetHistory();
         }
     }

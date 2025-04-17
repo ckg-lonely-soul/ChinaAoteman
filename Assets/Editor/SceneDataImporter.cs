@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.IO;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.IO;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 [Serializable]
 public class SceneObjectData

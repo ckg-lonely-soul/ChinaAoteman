@@ -1,7 +1,4 @@
 //#define NGUI
-using UnityEngine;
-using System.Collections;
-
 //-----------------------------------------------------------------------------
 // Copyright 2015-2017 RenderHeads Ltd.  All rights reserverd.
 //-----------------------------------------------------------------------------
@@ -12,7 +9,7 @@ namespace RenderHeads.Media.AVProVideo
 	[AddComponentMenu("AVPro Video/Display NGUI")]
 	public class ApplyToTextureWidgetNGUI : MonoBehaviour 
 	{
-		#region Fields
+        #region Fields
 		[SerializeField]
 		private UITexture _uiTexture = null;
 
@@ -45,7 +42,7 @@ namespace RenderHeads.Media.AVProVideo
 
 		private bool _isDirty;
 		private Texture _lastTextureApplied;
-		#endregion
+        #endregion
 
 		private void TryUpdateTexture()
 		{

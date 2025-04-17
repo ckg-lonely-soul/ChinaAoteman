@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class BossBase : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class BossBase : MonoBehaviour
         three,
     }
     public string Tag = "Boss";
-    public float dis = 6;
+    public float dis = 60;
     public TypeMove typeMove = TypeMove.one;
     private void Start()
     {
@@ -23,13 +20,13 @@ public class BossBase : MonoBehaviour
         switch (typeMove)
         {
             case TypeMove.one:
-                dis = 6;
+                dis = 60;
                 break;
             case TypeMove.two:
-                dis = 3;
+                dis = 30;
                 break;
             case TypeMove.three:
-                dis = 1;
+                dis = 10;
                 break;
         }
         return dis;

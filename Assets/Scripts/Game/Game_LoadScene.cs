@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Game_LoadScene : MonoBehaviour
@@ -16,10 +14,6 @@ public class Game_LoadScene : MonoBehaviour
     {
         Sprite[] sprite_Tips;
         string strCompany = "";
-        if (Main.COMPANY_NUM == 4)
-        {
-            strCompany = "Company_" + Main.COMPANY_NUM.ToString("D2") + "/";
-        }
         if (Set.setVal.Language == (int)en_Language.Chinese)
         {
             sprite_Tips = Resources.LoadAll<Sprite>(strCompany + "Pic/GameLoad/CN");

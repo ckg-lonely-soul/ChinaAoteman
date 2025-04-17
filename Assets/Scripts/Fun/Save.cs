@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Save
+﻿public class Save
 {
 #if NEW_IO
     const int SAVCOUNT = 2;

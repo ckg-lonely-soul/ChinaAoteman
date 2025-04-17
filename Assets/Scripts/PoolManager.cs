@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : MonoBehaviour 
+public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;//单例
     void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
         }
@@ -15,7 +14,7 @@ public class PoolManager : MonoBehaviour
     }
     //总对象池，可以存储多个物体池子。键是物体名字，值是物体池子，这里用栈实现
     public Dictionary<string, Stack<GameObject>> poolDic = new Dictionary<string, Stack<GameObject>>();
-    
+
     public GameObject GetObj(GameObject prefab)//要用物体时拿物体池子中的物体
     {
         GameObject obj;
@@ -23,7 +22,7 @@ public class PoolManager : MonoBehaviour
         if (poolDic.ContainsKey(prefab.name) && poolDic[prefab.name].Count > 0)
         {
             obj = poolDic[prefab.name].Pop();
-            if(obj == null)
+            if (obj == null)
             {
                 obj = Instantiate(prefab);
                 obj.name = prefab.name;
@@ -41,7 +40,7 @@ public class PoolManager : MonoBehaviour
     public void PushObj(GameObject obj)//将物体给回对象池的该物体池子
     {
         obj.SetActive(false);//不显示
-        if(!poolDic.ContainsKey(obj.name))//如果没有这个物体的物体池子，就创建一个物体池子加入到总对象池
+        if (!poolDic.ContainsKey(obj.name))//如果没有这个物体的物体池子，就创建一个物体池子加入到总对象池
         {
             poolDic.Add(obj.name, new Stack<GameObject>());
         }

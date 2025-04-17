@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 public delegate void AnimatorAction();
 public static class AnimatorHelper
 {

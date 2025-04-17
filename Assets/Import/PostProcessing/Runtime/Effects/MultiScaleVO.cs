@@ -153,7 +153,7 @@ namespace UnityEngine.Rendering.PostProcessing
             for (int i = 1; i < 7; i++)
             {
                 int div = 1 << i;
-                m_Widths[i]  = (m_Widths[0]  + (div - 1)) / div;
+                m_Widths[i] = (m_Widths[0] + (div - 1)) / div;
                 m_Heights[i] = (m_Heights[0] + (div - 1)) / div;
             }
 
@@ -169,10 +169,10 @@ namespace UnityEngine.Rendering.PostProcessing
             PushRenderCommands(cmd, ShaderIDs.TiledDepth3, ShaderIDs.Occlusion3, GetSizeArray(MipLevel.L5), tanHalfFovH, isMSAA);
             PushRenderCommands(cmd, ShaderIDs.TiledDepth4, ShaderIDs.Occlusion4, GetSizeArray(MipLevel.L6), tanHalfFovH, isMSAA);
 
-            PushUpsampleCommands(cmd, ShaderIDs.LowDepth4, ShaderIDs.Occlusion4, ShaderIDs.LowDepth3,   ShaderIDs.Occlusion3, ShaderIDs.Combined3, GetSize(MipLevel.L4), GetSize(MipLevel.L3), isMSAA);
-            PushUpsampleCommands(cmd, ShaderIDs.LowDepth3, ShaderIDs.Combined3,  ShaderIDs.LowDepth2,   ShaderIDs.Occlusion2, ShaderIDs.Combined2, GetSize(MipLevel.L3), GetSize(MipLevel.L2), isMSAA);
-            PushUpsampleCommands(cmd, ShaderIDs.LowDepth2, ShaderIDs.Combined2,  ShaderIDs.LowDepth1,   ShaderIDs.Occlusion1, ShaderIDs.Combined1, GetSize(MipLevel.L2), GetSize(MipLevel.L1), isMSAA);
-            PushUpsampleCommands(cmd, ShaderIDs.LowDepth1, ShaderIDs.Combined1,  ShaderIDs.LinearDepth, null,                 destination,         GetSize(MipLevel.L1), GetSize(MipLevel.Original), isMSAA, invert);
+            PushUpsampleCommands(cmd, ShaderIDs.LowDepth4, ShaderIDs.Occlusion4, ShaderIDs.LowDepth3, ShaderIDs.Occlusion3, ShaderIDs.Combined3, GetSize(MipLevel.L4), GetSize(MipLevel.L3), isMSAA);
+            PushUpsampleCommands(cmd, ShaderIDs.LowDepth3, ShaderIDs.Combined3, ShaderIDs.LowDepth2, ShaderIDs.Occlusion2, ShaderIDs.Combined2, GetSize(MipLevel.L3), GetSize(MipLevel.L2), isMSAA);
+            PushUpsampleCommands(cmd, ShaderIDs.LowDepth2, ShaderIDs.Combined2, ShaderIDs.LowDepth1, ShaderIDs.Occlusion1, ShaderIDs.Combined1, GetSize(MipLevel.L2), GetSize(MipLevel.L1), isMSAA);
+            PushUpsampleCommands(cmd, ShaderIDs.LowDepth1, ShaderIDs.Combined1, ShaderIDs.LinearDepth, null, destination, GetSize(MipLevel.L1), GetSize(MipLevel.Original), isMSAA, invert);
 
             // Cleanup
             PushReleaseCommands(cmd);
@@ -180,7 +180,7 @@ namespace UnityEngine.Rendering.PostProcessing
 
         void PushAllocCommands(CommandBuffer cmd, bool isMSAA)
         {
-            if(isMSAA)
+            if (isMSAA)
             {
                 Alloc(cmd, ShaderIDs.LinearDepth, MipLevel.Original, RenderTextureFormat.RGHalf, true);
 
@@ -320,16 +320,16 @@ namespace UnityEngine.Rendering.PostProcessing
             // in front are the number of samples with this weight because we sum the samples
             // together before multiplying by the weight, so as an aggregate all of those samples
             // matter more. After generating this table, the weights are normalized.
-            m_SampleWeightTable[ 0] = 4 * m_SampleThickness[ 0];    // Axial
-            m_SampleWeightTable[ 1] = 4 * m_SampleThickness[ 1];    // Axial
-            m_SampleWeightTable[ 2] = 4 * m_SampleThickness[ 2];    // Axial
-            m_SampleWeightTable[ 3] = 4 * m_SampleThickness[ 3];    // Axial
-            m_SampleWeightTable[ 4] = 4 * m_SampleThickness[ 4];    // Diagonal
-            m_SampleWeightTable[ 5] = 8 * m_SampleThickness[ 5];    // L-shaped
-            m_SampleWeightTable[ 6] = 8 * m_SampleThickness[ 6];    // L-shaped
-            m_SampleWeightTable[ 7] = 8 * m_SampleThickness[ 7];    // L-shaped
-            m_SampleWeightTable[ 8] = 4 * m_SampleThickness[ 8];    // Diagonal
-            m_SampleWeightTable[ 9] = 8 * m_SampleThickness[ 9];    // L-shaped
+            m_SampleWeightTable[0] = 4 * m_SampleThickness[0];    // Axial
+            m_SampleWeightTable[1] = 4 * m_SampleThickness[1];    // Axial
+            m_SampleWeightTable[2] = 4 * m_SampleThickness[2];    // Axial
+            m_SampleWeightTable[3] = 4 * m_SampleThickness[3];    // Axial
+            m_SampleWeightTable[4] = 4 * m_SampleThickness[4];    // Diagonal
+            m_SampleWeightTable[5] = 8 * m_SampleThickness[5];    // L-shaped
+            m_SampleWeightTable[6] = 8 * m_SampleThickness[6];    // L-shaped
+            m_SampleWeightTable[7] = 8 * m_SampleThickness[7];    // L-shaped
+            m_SampleWeightTable[8] = 4 * m_SampleThickness[8];    // Diagonal
+            m_SampleWeightTable[9] = 8 * m_SampleThickness[9];    // L-shaped
             m_SampleWeightTable[10] = 8 * m_SampleThickness[10];    // L-shaped
             m_SampleWeightTable[11] = 4 * m_SampleThickness[11];    // Diagonal
 

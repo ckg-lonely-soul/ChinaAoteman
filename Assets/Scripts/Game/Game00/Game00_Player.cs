@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public enum en_PlayerSta
 {
@@ -69,10 +68,14 @@ public class Game00_Player : MonoBehaviour
     {
         this.canChangeGun = canChangeGun;
     }
+
+    [Header("奥特曼光波")]
+    public AttackTarget attackTarget;
     #endregion
 
     public void Awake0(Game00_Main gmain, int no)
     {
+        
         gameMain = gmain;
         Id = no;
 
@@ -86,11 +89,12 @@ public class Game00_Player : MonoBehaviour
     }
     public void GameStart(en_StartType type)
     {
+        
         //Debug.Log("Start: " + type);
         switch (type)
         {
             case en_StartType.Reset:
-                if(Set.setVal.InOutMode != (int)en_InOutMode.OneInOneOut)
+                if (Set.setVal.InOutMode != (int)en_InOutMode.OneInOneOut)
                 {
                     if (FjData.g_Fj[Id].Playing == false)
                     {
@@ -105,7 +109,7 @@ public class Game00_Player : MonoBehaviour
                 FjData.g_Fj[Id].JsScores = 0;
                 FjData.g_Fj[Id].Blood = Set.setVal.GameTime;    //MAX_PLAYER_BLOOD;
                 FjData.g_Fj[Id].GameTime = Set.setVal.GameTime;
-                shellType = en_ShellType.Normal;
+                shellType = en_ShellType.Aoteman;
                 specialAttackTime = 0;
                 break;
             case en_StartType.Continue:
@@ -121,7 +125,7 @@ public class Game00_Player : MonoBehaviour
                 FjData.g_Fj[Id].GameTime = Set.setVal.GameTime;
                 break;
             case en_StartType.NextGame:
-                shellType = en_ShellType.Normal;
+                shellType = en_ShellType.Aoteman;
                 specialAttackTime = 0;
                 break;
         }
@@ -140,7 +144,6 @@ public class Game00_Player : MonoBehaviour
         Update_Coins();
         Update_Score();
         //playerUI.Update_Time((int)FjData.acc[Id].gameTime);
-
         playerUI.GameStart(Id);
         playerUI.remainBulletNum_Obj.gameObject.SetActive(false);
         gunId = 0;
@@ -157,12 +160,12 @@ public class Game00_Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // gameMain.DamageStart();
-            if (Id == 0)
-                GetDaoJu(en_Game00_DaoJuType.DaoDan);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    // gameMain.DamageStart();
+        //    if (Id == 0)
+        //        GetDaoJu(en_Game00_DaoJuType.DaoDan);
+        //}
         // 投币检测
         if (Main.coinInChanged[Id])
         {
@@ -189,7 +192,7 @@ public class Game00_Player : MonoBehaviour
             case en_ShellType.DaoDan:
                 if (daoDanNum <= 0)
                 {
-                    shellType = en_ShellType.Normal;
+                    shellType = en_ShellType.Aoteman;
                     playerUI.image_SpecialAttackFlag.gameObject.SetActive(false);
                 }
                 break;
@@ -201,7 +204,7 @@ public class Game00_Player : MonoBehaviour
                 }
                 else
                 {
-                    shellType = en_ShellType.Normal;
+                    shellType = en_ShellType.Aoteman;
                     playerUI.image_SpecialAttackFlag.gameObject.SetActive(false);
                 }
                 break;
@@ -215,6 +218,7 @@ public class Game00_Player : MonoBehaviour
                     if (Set.setVal.GunMode == (int)en_GunMode.ShootWater)
                     {
                         GameStart(en_StartType.Reset);
+
                     }
                     else
                     {
@@ -230,6 +234,7 @@ public class Game00_Player : MonoBehaviour
                     }
                 }
                 break;
+            //开火在这里
             case en_PlayerSta.Play:
                 runTime += Time.deltaTime;
                 if (runTime >= 1)
@@ -279,8 +284,9 @@ public class Game00_Player : MonoBehaviour
                     Fire();
                 }
 #else
-                //Key.KEYFJ_Statue_Ok(Id) || Set.setVal.GunMode == (int)en_GunMode.ShootWater
-                if (Key.KEYFJ_Statue_Ok(Id) || Set.setVal.GunMode == (int)en_GunMode.ShootWater)
+                //看能不能开火
+                if ((Key.KEYFJ_Statue_Ok(Id) || Set.setVal.GunMode == (int)en_GunMode.ShootWater) &&
+                    attackTarget.canFire)
                 {
                     if (Set.setVal.GunMode == (int)en_GunMode.ShootBead && IO.gunMotorSta[Id] == false)
                     {
@@ -288,9 +294,12 @@ public class Game00_Player : MonoBehaviour
                     }
                     if (fireDcTime <= 0)
                     {
+                        //开火
                         Fire();
                     }
                     pressedOkContinue = true;
+                    attackTarget.attackLight.SetActive(true);
+                    playerUI.image_Cursor.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -300,17 +309,22 @@ public class Game00_Player : MonoBehaviour
                     }
 
                     pressedOkContinue = false;
+                    attackTarget.attackLight.SetActive(false);
+                    playerUI.image_Cursor.gameObject.SetActive(true);
                 }
+
+                //Key.KEYFJ_Statue_Ok(Id) || Set.setVal.GunMode == (int)en_GunMode.ShootWater
+                
 #endif
 #if !GUN_HW
-                if (canChangeGun)
-                {
-                    if (Key.KEYFJ_AddPressed(Id))
-                    {
-                        ChangeGun();
-                    }
-                }
-                
+                //if (canChangeGun)
+                //{
+                //    if (Key.KEYFJ_AddPressed(Id))
+                //    {
+                //        ChangeGun();
+                //    }
+                //}
+
 #endif
                 break;
 
@@ -458,6 +472,7 @@ public class Game00_Player : MonoBehaviour
             case en_PlayerSta.Play:
                 //  playerUI.gameObject.SetActive(true);
                 playerUI.image_ContinueText.gameObject.SetActive(false);
+                playerUI.image_BloodValue.transform.parent.SetActive(true);
                 playerUI.SetCheckPleaseCoinIn(false);
                 if (Set.setVal.GunMode == (int)en_GunMode.ShootBead || Set.setVal.GunMode == (int)en_GunMode.ShootWater)
                 {
@@ -471,7 +486,7 @@ public class Game00_Player : MonoBehaviour
                         playerUI.image_Cursor.gameObject.SetActive(false);
                     }
                 }
-                Update_Gun(gunId);
+                //Update_Gun(gunId);
                 if (Set.setVal.GunMode == (int)en_GunMode.ShootWater)
                 {
                     IO.GunMotorStart(Id);
@@ -500,20 +515,17 @@ public class Game00_Player : MonoBehaviour
             case en_PlayerSta.ContinueTimeout:
                 playerUI.SetCheckPleaseCoinIn(true);
                 playerUI.image_ContinueText.gameObject.SetActive(true);
+                attackTarget.attackLight.SetActive(false);
+                playerUI.image_Cursor.gameObject.SetActive(true);
                 timeOut = 20;
-                if (Main.COMPANY_NUM == 9)
-                {
-                    timeOut = 30;
-                }
-                //#if UNITY_EDITOR
-                //                timeOut = 2;
-                //#endif
                 playerUI.Update_ContinueTime(timeOut);
                 playerUI.image_ContinueText.sprite = sprite_ContinueGameStart[0 + Set.setVal.Language];
                 Main.FormatImageSizeFollowSprite(playerUI.image_ContinueText);
                 break;
             case en_PlayerSta.JoinGame:
                 playerUI.image_ContinueText.gameObject.SetActive(true);
+                attackTarget.attackLight.SetActive(false);
+                playerUI.image_Cursor.gameObject.SetActive(true);
                 playerUI.image_ContinueText.sprite = sprite_ContinueGameStart[2 + Set.setVal.Language];
                 Main.FormatImageSizeFollowSprite(playerUI.image_ContinueText);
                 timeOut = 20;
@@ -572,7 +584,7 @@ public class Game00_Player : MonoBehaviour
                 return;
             }
             // 枪头瞄准目标怪
-            gunPos.transform.rotation = Quaternion.Slerp(gunPos.transform.rotation, Quaternion.LookRotation(monsterTarget.centerPos.transform.position - gunPos.transform.position), 10 * Time.deltaTime);
+            gunPos.transform.rotation = UnityEngine.Quaternion.Slerp(gunPos.transform.rotation, UnityEngine.Quaternion.LookRotation(monsterTarget.centerPos.transform.position - gunPos.transform.position), 10 * Time.deltaTime);
             //
             if (Physics.Raycast(gunPos.transform.position, gunPos.transform.forward, out hit, 1000))
             {
@@ -640,6 +652,7 @@ public class Game00_Player : MonoBehaviour
                 // 火花
                 if (currGun != null)
                 {
+                    //发射子弹
                     if (currGun.Fire())
                     {
                         fireDcTime = currGun.dcTime;
@@ -749,6 +762,42 @@ public class Game00_Player : MonoBehaviour
                             }
                         }
 #endif
+                    }
+                }
+                break;
+
+            case en_ShellType.Aoteman:
+                //这里写怪物受伤害？
+                IO.GunRunStart(Id, 20, 30);
+                fireDcTime = (float)((byte)Set.setVal.Gun2ShakePower + (byte)(Set.setVal.Gun2ShakeTime - Set.setVal.Gun2ShakePower)) / 1000f;
+                
+                screenPos = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, playerUI.image_Cursor.transform.position);
+                ray = Camera.main.ScreenPointToRay(screenPos);
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    // 怪
+                    if (hit.collider.transform.root.tag == "Monster")
+                    {
+                        Game00_Monster monster = hit.collider.transform.root.GetComponent<Game00_Monster>();
+                        if (monster != null)
+                        {
+                            bool crit = false;
+                            if (Random.Range(0, 1000) < 50)
+                            {
+                                crit = true;
+                            }
+                            monster.Attacked(this, 10, crit);
+                        }
+                        break;
+                    }
+                    // 道具
+                    if (hit.collider.transform.root.tag == "DaoJu")
+                    {
+                        Game00_DaoJu daoju = hit.collider.transform.root.GetComponent<Game00_DaoJu>();
+                        if (daoju != null)
+                        {
+                            daoju.Attacked(this);
+                        }
                     }
                 }
                 break;
@@ -923,4 +972,19 @@ public class Game00_Player : MonoBehaviour
     //    GUI.Label(new Rect(50, 520, 300, 20), "ADC_LR: " + Key.GetAd_LeftRight(Id));
     //    GUI.Label(new Rect(50, 550, 300, 20), "ADC_UD: " + Key.GetAd_UpDown(Id));
     //}
+
+    public void GainBlood(int addblood)
+    {
+        FjData.g_Fj[Id].Blood += addblood;
+        if (FjData.g_Fj[Id].Blood > Set.setVal.GameTime)
+        {
+            FjData.g_Fj[Id].Blood = Set.setVal.GameTime; //MAX_PLAYER_BLOOD;
+        }
+        FjData.g_Fj[Id].GameTime += addblood;
+        if (FjData.g_Fj[Id].GameTime > Set.setVal.GameTime)
+        {
+            FjData.g_Fj[Id].GameTime = Set.setVal.GameTime; //MAX_PLAYER_BLOOD;
+        }
+        Update_HP();
+    }
 }

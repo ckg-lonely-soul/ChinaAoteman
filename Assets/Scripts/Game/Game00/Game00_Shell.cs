@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum en_ShellType
 {
     Normal = 0,
+    Aoteman = 1,
     SanDan,
     DaoDan,
     PaoDan,         // 炮弹
     Buttle,         // 子弹
     Bomb,           // 炸弹/手雷
     Sword,          //道具 Game04BOSS用
-    FarmTool ,      //农具 Game01怪用
+    FarmTool,      //农具 Game01怪用
     Arrow,          //Game11使用
     Bullet,         //Game07使用
     FireBall,       //Game05使用

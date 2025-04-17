@@ -1,7 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-public class ClearMissingScripts : MonoBehaviour {
+public class ClearMissingScripts : MonoBehaviour
+{
 
     [MenuItem("GunGameTool/Clear Missing Scripts")]
     static void ClearMissingScriptsFromSelected()

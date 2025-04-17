@@ -11,9 +11,9 @@
 #define UNITY_HELPATTRIB
 #endif
 
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 #if NETFX_CORE
 using Windows.Storage.Streams;

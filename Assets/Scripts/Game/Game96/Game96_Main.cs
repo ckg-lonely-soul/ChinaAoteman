@@ -1,7 +1,4 @@
-﻿using RenderHeads.Media.AVProVideo;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Game96_Main : MonoBehaviour
@@ -126,10 +123,10 @@ public class Game96_Main : MonoBehaviour
     {
         if (Key.KEYFJ_Statue_Ok(0))
         {
-            if(fireCD <= 0)
+            if (fireCD <= 0)
             {
                 fireCD = 0.2f;
-                if(Set.setVal.MP5GunShake == 1)
+                if (Set.setVal.MP5GunShake == 1)
                 {
 #if SHAKE_POWER
                     IO.GunRunStart(0, (byte)Set.setVal.Gun1ShakePower, (byte)(Set.setVal.Gun1ShakeTime - Set.setVal.Gun1ShakePower));

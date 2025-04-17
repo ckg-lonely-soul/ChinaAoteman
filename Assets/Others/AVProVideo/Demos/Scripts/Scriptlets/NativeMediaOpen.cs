@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using RenderHeads.Media.AVProVideo;
+﻿using UnityEngine;
 
 #if NETFX_CORE
 using Windows.Storage;
@@ -17,30 +13,30 @@ using System.Threading.Tasks;
 
 namespace RenderHeads.Media.AVProVideo.Demos
 {
-	/// <summary>
-	/// Demonstration of how to use StorageFiles with AVProVideo in UWP builds
-	/// The code is put behind NETFX_CORE macros as it is only valid in UWP
-	/// This example loads a video picked by the user after clicking the Open Video File button
-	/// </summary>
-	public class NativeMediaOpen : MonoBehaviour
-	{
-		public MediaPlayer player;
+    /// <summary>
+    /// Demonstration of how to use StorageFiles with AVProVideo in UWP builds
+    /// The code is put behind NETFX_CORE macros as it is only valid in UWP
+    /// This example loads a video picked by the user after clicking the Open Video File button
+    /// </summary>
+    public class NativeMediaOpen : MonoBehaviour
+    {
+        public MediaPlayer player;
 #if NETFX_CORE
 		private IRandomAccessStreamWithContentType _ras;
 		private FileOpenPicker _picker;
 		private string _pickedFileName;
 		private StorageFile file = null;
 #endif
-		// Use this for initialization
-		void Start()
-		{
+        // Use this for initialization
+        void Start()
+        {
 #if NETFX_CORE
 			_picker = new FileOpenPicker();
 			_picker.ViewMode = PickerViewMode.Thumbnail;
 			_picker.SuggestedStartLocation = PickerLocationId.VideosLibrary;
 			_picker.FileTypeFilter.Add("*");
 #endif
-		}
+        }
 
 #if NETFX_CORE
 		void LoadFile()
@@ -65,24 +61,24 @@ namespace RenderHeads.Media.AVProVideo.Demos
 		}
 #endif
 
-		void OnGUI()
-		{
-			if (GUILayout.Button("Open Video File"))
-			{
+        void OnGUI()
+        {
+            if (GUILayout.Button("Open Video File"))
+            {
 #if NETFX_CORE
 				LoadFile();
 #endif
-			}
+            }
 
-			if(player != null)
-			{
-				GUILayout.Label("Currently Playing: " + player.m_VideoPath);
-			}
-			
-		}
+            if (player != null)
+            {
+                GUILayout.Label("Currently Playing: " + player.m_VideoPath);
+            }
 
-		private void Update()
-		{
+        }
+
+        private void Update()
+        {
 #if NETFX_CORE
 			// if file has been loaded, read it into randomaccessstream and send to AVProVideo
 			if(file != null)
@@ -96,7 +92,7 @@ namespace RenderHeads.Media.AVProVideo.Demos
 				player.OpenVideoFromStream(_ras, _pickedFileName, true);
 			}
 #endif
-		}
-	}
+        }
+    }
 }
 

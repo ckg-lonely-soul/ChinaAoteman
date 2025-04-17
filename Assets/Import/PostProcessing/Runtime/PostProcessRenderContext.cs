@@ -379,8 +379,8 @@ namespace UnityEngine.Rendering.PostProcessing
 
             //intermediates in VR are unchanged
             if (stereoActive && desc.dimension == Rendering.TextureDimension.Tex2DArray)
-               desc.dimension = Rendering.TextureDimension.Tex2D;
-          
+                desc.dimension = Rendering.TextureDimension.Tex2D;
+
             cmd.GetTemporaryRT(nameID, desc, filter);
 #else
             int actualWidth = width;

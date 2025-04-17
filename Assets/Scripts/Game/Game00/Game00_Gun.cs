@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum en_GunType
 {
@@ -192,7 +190,7 @@ public class Game00_Gun : MonoBehaviour
 #if SHAKE_POWER
                         IO.GunRunStart(player.Id, (byte)Set.setVal.Gun1ShakePower, (byte)(Set.setVal.Gun1ShakeTime - Set.setVal.Gun1ShakePower));
 #else
-                    IO.GunRunStart(player.Id, 20, 30);
+                        IO.GunRunStart(player.Id, 20, 30);
 #endif
                         // 子弹: 
 #if !GUN_HW

@@ -249,7 +249,7 @@ MonoBehaviour:
   updateDirector: 1
   updateITimeControl: 1
   searchHierarchy: 1
-  active: 0
+  active: 1
   postPlayback: 2
 --- !u!114 &114894591832767298
 MonoBehaviour:

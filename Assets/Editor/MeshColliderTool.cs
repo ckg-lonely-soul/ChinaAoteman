@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class MeshColliderTool : EditorWindow
 {
-    
+
     [MenuItem("GunGameTool/Add MeshCollider to Children")]
     public static void ShowWindow()
     {

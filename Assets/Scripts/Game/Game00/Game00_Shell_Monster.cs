@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Game00_Shell_Monster : MonoBehaviour
 {
@@ -64,7 +62,7 @@ public class Game00_Shell_Monster : MonoBehaviour
             transform.LookAt(gameMain.players_Obj.transform.position);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, -90);
         }
-        if (shellType == en_ShellType.FarmTool || shellType == en_ShellType.FireBall|| shellType==en_ShellType.Bullet||shellType==en_ShellType.longjuanfeng)
+        if (shellType == en_ShellType.FarmTool || shellType == en_ShellType.FireBall || shellType == en_ShellType.Bullet || shellType == en_ShellType.longjuanfeng)
         {
             transform.LookAt(gameMain.players_Obj.transform.position);
         }
@@ -178,7 +176,7 @@ public class Game00_Shell_Monster : MonoBehaviour
             case en_ShellType.FireBall:
 
                 transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
-                _distance = Vector3.Distance(transform.position, gameMain.players_Obj.transform.position); 
+                _distance = Vector3.Distance(transform.position, gameMain.players_Obj.transform.position);
                 if (_distance < effDis)
                 {
                     //Debug.Log(44);
@@ -199,7 +197,7 @@ public class Game00_Shell_Monster : MonoBehaviour
                     {
                         Destroy(gameObject);
                     }
-                    
+
                 }
                 break;
 
@@ -255,7 +253,7 @@ public class Game00_Shell_Monster : MonoBehaviour
                     }
                 }
                 break;
-          
+
             #region
             //case en_ShellType.Catapult:
             //    transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
@@ -333,7 +331,7 @@ public class Game00_Shell_Monster : MonoBehaviour
                     //    Destroy(gameObject);
                     //}
                 }
-                Destroy(gameObject, 5f);          
+                Destroy(gameObject, 5f);
                 break;
             default:
                 break;

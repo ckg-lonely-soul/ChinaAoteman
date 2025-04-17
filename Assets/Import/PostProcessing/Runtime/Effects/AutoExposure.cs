@@ -22,7 +22,7 @@ namespace UnityEngine.Rendering.PostProcessing
     /// A volume parameter holding a <see cref="EyeAdaptation"/> value.
     /// </summary>
     [Serializable]
-    public sealed class EyeAdaptationParameter : ParameterOverride<EyeAdaptation> {}
+    public sealed class EyeAdaptationParameter : ParameterOverride<EyeAdaptation> { }
 
     /// <summary>
     /// This class holds settings for the Auto Exposure effect.
@@ -74,7 +74,7 @@ namespace UnityEngine.Rendering.PostProcessing
         /// </summary>
         [Min(0f), Tooltip("Adaptation speed from a light to a dark environment.")]
         public FloatParameter speedDown = new FloatParameter { value = 1f };
-        
+
         /// <inheritdoc />
         public override bool IsEnabledAndSupported(PostProcessRenderContext context)
         {
@@ -172,7 +172,7 @@ namespace UnityEngine.Rendering.PostProcessing
                 int pp = m_AutoExposurePingPong[context.xrActiveEye];
                 var src = m_AutoExposurePool[context.xrActiveEye][++pp % 2];
                 var dst = m_AutoExposurePool[context.xrActiveEye][++pp % 2];
-                
+
                 cmd.SetComputeTextureParam(compute, kernel, "_Source", src);
                 cmd.SetComputeTextureParam(compute, kernel, "_Destination", dst);
                 cmd.DispatchCompute(compute, kernel, 1, 1, 1);

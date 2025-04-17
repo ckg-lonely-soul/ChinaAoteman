@@ -32,7 +32,7 @@ namespace UnityEngine.Rendering.PostProcessing
     /// A volume parameter holding a <see cref="KernelSize"/> value.
     /// </summary>
     [Serializable]
-    public sealed class KernelSizeParameter : ParameterOverride<KernelSize> {}
+    public sealed class KernelSizeParameter : ParameterOverride<KernelSize> { }
 
     /// <summary>
     /// This class holds settings for the Depth of Field effect.
@@ -170,10 +170,10 @@ namespace UnityEngine.Rendering.PostProcessing
             var cocFormat = SelectFormat(RenderTextureFormat.R8, RenderTextureFormat.RHalf);
 
             // Avoid using R8 on OSX with Metal. #896121, https://goo.gl/MgKqu6
-            #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX) && !UNITY_2017_1_OR_NEWER
+#if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX) && !UNITY_2017_1_OR_NEWER
             if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Metal)
                 cocFormat = SelectFormat(RenderTextureFormat.RHalf, RenderTextureFormat.Default);
-            #endif
+#endif
 
             // Material setup
             float scaledFilmHeight = k_FilmHeight * (context.height / 1080f);

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -111,25 +110,6 @@ public class Menu_GameSet : MonoBehaviour
             }
         }
 
-
-        /*	if (Key.MENU_UpPressed ()) {
-                if (selectSta == false) {
-                    if (postIndex >= MAX_SET_SEL) {
-                        postIndex = MAX_SET_SEL - 1;
-                    } else {
-                        postIndex = (postIndex + MAX_SEL - 1) % MAX_SEL;
-                        UpdateSetValPos();
-                    }
-                    UpdateCursor ();
-                }
-            }
-            if (Key.MENU_DownPressed ()) {
-                if (selectSta == false) {
-                    postIndex = (postIndex + 1) % MAX_SEL;
-                    UpdateSetValPos();
-                    UpdateCursor ();
-                }
-            } */
         if (Key.MENU_LeftPressed() || Key.KEYFJ_Menu_LeftPressed())
         {
             if (selectSta == true)
@@ -144,11 +124,6 @@ public class Menu_GameSet : MonoBehaviour
                 postIndex = (postIndex + MAX_SEL - 1) % MAX_SEL;
                 UpdateSetValPos();
                 UpdateCursor();
-                //	if (postIndex > MAX_SET_SEL) {
-                //		postIndex--;
-                //		UpdateSetValPos();
-                //		UpdateCursor ();
-                //	}
             }
         }
         if (Key.MENU_RightPressed() || Key.KEYFJ_Menu_RightPressed())
@@ -165,11 +140,6 @@ public class Menu_GameSet : MonoBehaviour
                 postIndex = (postIndex + 1) % MAX_SEL;
                 UpdateSetValPos();
                 UpdateCursor();
-                //	if (postIndex >= MAX_SET_SEL) {
-                //		postIndex = (postIndex + 1) % MAX_SEL;
-                //		UpdateSetValPos();
-                //		UpdateCursor ();
-                //	}
             }
         }
         if (Key.MENU_OkPressed() || Key.KEYFJ_Menu_OkPressed())
@@ -183,7 +153,6 @@ public class Menu_GameSet : MonoBehaviour
                 }
                 else
                 {
-                    //if (Main.VER_ENC && Game_Enc.IsActive() == false && CanChange() == false)   //
                     if (CanChange() == false)
                         return;
                     UpdataCursor_Select(true);
@@ -240,6 +209,7 @@ public class Menu_GameSet : MonoBehaviour
             selectFlag.Init(list_SetVal[postIndex].image_ValueBackG.rectTransform.sizeDelta.x);
         }
     }
+
     // 更新光标坐标和大小
     void UpdateCursor()
     {
@@ -283,7 +253,6 @@ public class Menu_GameSet : MonoBehaviour
             if ((i / MAX_SET_ONEPAGE) == page)
             {
                 list_SetVal[i].gameObject.SetActive(true);
-                //list_SetVal[i].transform.localPosition = new Vector3(0, 220 - (i % MAX_SET_ONEPAGE) * 70, 0);
                 pindex = i % MAX_SET_ONEPAGE;
                 list_SetVal[i].transform.localPosition = new Vector3((pindex % 3) * 300 - 300, 180 - (pindex / 3) * 70, 0);
             }
@@ -307,6 +276,7 @@ public class Menu_GameSet : MonoBehaviour
         UpdataCursor_Select(false);
         UpdateCursor();
     }
+
     // 2.更新显示中英文
     public void UpdateLanguage()
     {
@@ -373,12 +343,6 @@ public class Menu_GameSet : MonoBehaviour
 
     bool CanChange()
     {
-        //if (Main.VER_ENC) {
-        //    if (Game_Enc.IsActive() == false) {
-        //        if (tab_IdBuf[postIndex] == SET_ID_CardValue)
-        //            return false;
-        //    }
-        //}
         return true;
     }
 
@@ -396,9 +360,6 @@ public class Menu_GameSet : MonoBehaviour
     const int SET_ID_GiftBl = 8;
     const int SET_ID_GameTime = 9;
     const int SET_ID_ScoreTtl = 10;
-    //const int SET_ID_MonsterNum_1 = 8;
-    //const int SET_ID_MonsterNum_2 = 9;
-    //const int SET_ID_MonsterNum_3 = 10;
     //
     const int SET_ID_TicketsOneCoin = 11;
     const int SET_ID_EditerOneCoin = 12;
@@ -505,9 +466,7 @@ public class Menu_GameSet : MonoBehaviour
         setVal[SET_ID_GiftBl].SetValueInit(Set.SET_c_GiftBl);
         setVal[SET_ID_StartCoins].SetValueInit(Set.SET_c_StartCoins);
         setVal[SET_ID_GameTime].SetValueInit(Set.SET_c_GameTime);
-        //setVal[SET_ID_MonsterNum_1].SetValueInit(Set.SET_c_MonsterNum_1);
-        //setVal[SET_ID_MonsterNum_2].SetValueInit(Set.SET_c_MonsterNum_2);
-        //setVal[SET_ID_MonsterNum_3].SetValueInit(Set.SET_c_MonsterNum_3);
+        //
         setVal[SET_ID_ScoreTtl].SetValueInit(Set.SET_c_ScoreTtl);
         setVal[SET_ID_DeskMusic].SetValueInit(Set.SET_c_DeskMusic);
         setVal[SET_ID_MainSoundVolume].SetValueInit(Set.SET_c_MainSoundVolume);
@@ -586,9 +545,6 @@ public class Menu_GameSet : MonoBehaviour
             setVal[SET_ID_TicketBl].SetSelectName("彩票比率");
             setVal[SET_ID_GiftBl].SetSelectName("扭蛋比率");
             setVal[SET_ID_GameTime].SetSelectName("游戏时间");
-            //setVal[SET_ID_MonsterNum_1].SetSelectName("第1关怪物数量");
-            //setVal[SET_ID_MonsterNum_2].SetSelectName("第2关怪物数量");
-            //setVal[SET_ID_MonsterNum_3].SetSelectName("第3关怪物数量");
             setVal[SET_ID_ScoreTtl].SetSelectName("是否积累");
             setVal[SET_ID_DeskMusic].SetSelectName("待机音乐");
             setVal[SET_ID_ShowQrCode].SetSelectName("显示二维码");
@@ -659,9 +615,6 @@ public class Menu_GameSet : MonoBehaviour
             setVal[SET_ID_PlayerMode].SetSelectName("Player Mode");
             setVal[SET_ID_StartCoins].SetSelectName("Number Of Coins Play Once");
             setVal[SET_ID_GameTime].SetSelectName("Game Time");
-            //setVal[SET_ID_MonsterNum_1].SetSelectName("Number Of Monster In Level 1");
-            //setVal[SET_ID_MonsterNum_2].SetSelectName("Number Of Monster In Level 2");
-            //setVal[SET_ID_MonsterNum_3].SetSelectName("Number Of Monster In Level 3");
             setVal[SET_ID_ScoreTtl].SetSelectName("Wheher The Cumulative");
             setVal[SET_ID_DeskMusic].SetSelectName("Dest Music");
             setVal[SET_ID_ShowQrCode].SetSelectName("Show QR-Code");
@@ -742,11 +695,6 @@ public class Menu_GameSet : MonoBehaviour
                     case SET_ID_OutDcTime:
                         text_Descript.text = "退礼品信号有效间隔时间：" + setVal[i].text_SetValue.text + "毫秒。";
                         break;
-                    //case SET_ID_SmallGameWinMode:
-                    //    text_Descript.text =
-                    //        setVal[i].GetValueName((int)en_SmallGameWinMode.Card) + ": " + "转盘中奖出卡片" + "\r\n" +
-                    //        setVal[i].GetValueName((int)en_SmallGameWinMode.Gift) + ": " + "转盘中奖出扭蛋";
-                    //    break;
                     default:
                         text_DescriptTitle.gameObject.SetActive(false);
                         text_Descript.gameObject.SetActive(false);
@@ -780,9 +728,6 @@ public class Menu_GameSet : MonoBehaviour
         setVal[SET_ID_GiftBl].UpdateValue(Set.setVal.GiftBl);
         setVal[SET_ID_StartCoins].UpdateValue(Set.setVal.StartCoins);
         setVal[SET_ID_GameTime].UpdateValue(Set.setVal.GameTime);
-        //setVal[SET_ID_MonsterNum_1].UpdateValue(Set.setVal.MonsterNum_1);
-        //setVal[SET_ID_MonsterNum_2].UpdateValue(Set.setVal.MonsterNum_2);
-        //setVal[SET_ID_MonsterNum_3].UpdateValue(Set.setVal.MonsterNum_3);
         setVal[SET_ID_ScoreTtl].UpdateValue(Set.setVal.ScoreTtl);
         setVal[SET_ID_DeskMusic].UpdateValue(Set.setVal.DeskMusic);
         setVal[SET_ID_ShowQrCode].UpdateValue(Set.setVal.ShowQrCode);
@@ -836,9 +781,6 @@ public class Menu_GameSet : MonoBehaviour
         Set.setVal.GiftBl = setVal[SET_ID_GiftBl].GetValue();
         Set.setVal.StartCoins = setVal[SET_ID_StartCoins].GetValue();
         Set.setVal.GameTime = setVal[SET_ID_GameTime].GetValue();
-        //Set.setVal.MonsterNum_1 = setVal[SET_ID_MonsterNum_1].GetValue();
-        //Set.setVal.MonsterNum_2 = setVal[SET_ID_MonsterNum_2].GetValue();
-        //Set.setVal.MonsterNum_3 = setVal[SET_ID_MonsterNum_3].GetValue();
         Set.setVal.ScoreTtl = setVal[SET_ID_ScoreTtl].GetValue();
         Set.setVal.DeskMusic = setVal[SET_ID_DeskMusic].GetValue();
         Set.setVal.ShowQrCode = setVal[SET_ID_ShowQrCode].GetValue();

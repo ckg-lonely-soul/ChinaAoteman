@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 public enum en_MonsterAttackDistanceType
@@ -28,7 +26,10 @@ public enum en_MonsterSta
     Die,
     Roll,
     Quicken, //加速冲刺
-    Spawn   //怪物跳出场
+    Spawn,   //怪物跳出场
+
+    //Boss状态
+    Roar,  
 }
 
 
@@ -223,6 +224,7 @@ public class Game00_Monster : MonoBehaviour
                         //这里意思应该是如果玩家见到了怪物，之后怪物在玩家镜头之后消失
                         //如果时间超过renderTime,就会摧毁该怪物。
                         Destroy(gameObject);
+
                         return;
                     }
                 }
@@ -317,7 +319,7 @@ public class Game00_Monster : MonoBehaviour
     {
         if (isBOSS)
         {
-            gameMain.Update_BossHP_Pos(HP_Pos.transform.position); //设置boss血条位置
+            //gameMain.Update_BossHP_Pos(HP_Pos.transform.position); //设置boss血条位置
         }
     }
     public void ChangeStatueWithoutAnim(en_MonsterSta sta)
@@ -394,11 +396,11 @@ public class Game00_Monster : MonoBehaviour
             case en_MonsterSta.Walk:
                 if (animator != null)
                 {
-                    animator.Play("Run");
+                    animator.Play("Walk");
                 }
                 else if (animation != null)
                 {
-                    animation.Play("Run");
+                    animation.Play("Walk");
                 }
                 if (audioSource_Run != null)
                 {
@@ -700,12 +702,12 @@ public class Game00_Monster : MonoBehaviour
                     nums.UpdateShow(score);
 
                     // 暴出道具
-                    en_Game00_DaoJuType daojuType = gameMain.GetDaoJu(playerFun);
-                    if (daojuType != en_Game00_DaoJuType.None)
-                    {
-                        GameObject daoju_obj = GameObject.Instantiate(gameMain.daoJu_Prefab[(int)daojuType], transform.position, Quaternion.identity);
-                        daoju_obj.GetComponent<Game00_DaoJu>().Init(gameMain);
-                    }
+                    //en_Game00_DaoJuType daojuType = gameMain.GetDaoJu(playerFun);
+                    //if (daojuType != en_Game00_DaoJuType.None)
+                    //{
+                    //    GameObject daoju_obj = GameObject.Instantiate(gameMain.daoJu_Prefab[(int)daojuType], transform.position, Quaternion.identity);
+                    //    daoju_obj.GetComponent<Game00_DaoJu>().Init(gameMain);
+                    //}
                 }
 
             }

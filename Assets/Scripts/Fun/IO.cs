@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using System;
+﻿using UnityEngine;
 
 public enum en_PlayerIO
 {
@@ -90,7 +86,7 @@ public class IO
             }
         }
 #endif
-}
+    }
 
     public static void Update(int key, bool enable)
     {
@@ -352,7 +348,7 @@ public class IO
         CmdIO.CMD0_SendCmd_GunStop((byte)playerno);
         gunMotorSta[playerno] = false;
     }
-    public static void ButtonLED(int playerno,byte power )
+    public static void ButtonLED(int playerno, byte power)
     {
         CmdIO.CMD0_SendCmd_ButtonLED((byte)playerno, power);
         CmdIO.CMD0_SendCmd_ButtonLED((byte)playerno, power);

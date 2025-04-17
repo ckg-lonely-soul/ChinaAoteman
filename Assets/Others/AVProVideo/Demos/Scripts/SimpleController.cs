@@ -1,13 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 //-----------------------------------------------------------------------------
 // Copyright 2015-2017 RenderHeads Ltd.  All rights reserverd.
 //-----------------------------------------------------------------------------
 
-using RenderHeads.Media.AVProVideo;
 
 namespace RenderHeads.Media.AVProVideo.Demos
 {
@@ -105,10 +104,10 @@ namespace RenderHeads.Media.AVProVideo.Demos
 
         void Update()
         {
-            if (volumeInt != VolumeCotroy.sysVolume)
+            if (volumeInt != VolumeControl.sysVolume)
             {
-                volumeInt = VolumeCotroy.sysVolume;
-                volume = (float)volumeInt / VolumeCotroy.SET_c_MaxSysVolume;
+                volumeInt = VolumeControl.sysVolume;
+                volume = (float)volumeInt / VolumeControl.SET_c_MaxSysVolume;
             }
             if (_mediaPlayer.Control != null)
             {
@@ -191,10 +190,10 @@ namespace RenderHeads.Media.AVProVideo.Demos
         int volumeInt = -1;
         void Update_Volume()
         {
-            volumeInt = VolumeCotroy.sysVolume;
+            volumeInt = VolumeControl.sysVolume;
             if (_mediaPlayer.Control != null)
             {
-                volume = (float)volumeInt / VolumeCotroy.SET_c_MaxSysVolume;
+                volume = (float)volumeInt / VolumeControl.SET_c_MaxSysVolume;
                 _mediaPlayer.Control.SetVolume(Mathf.Clamp(volume, 0, 1));
             }
         }

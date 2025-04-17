@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public enum en_FreshPosSta
@@ -124,6 +122,11 @@ public class Game00_FreshPos : MonoBehaviour
             gameMain.list_Monster.Add(monster);
             gameMain.monsterNum++;
             gameMain.monsterAliveNum++;
+            //是生成的第一个怪
+            //if (gameMain.monsterAliveNum == 1)
+            //{
+            //}
+            gameMain.zhcr.ChangeStatue(Zhcr_Sta.Attack);
             currMonster = monster;
             //
             freshDcTime = curPosFreshDcTime;

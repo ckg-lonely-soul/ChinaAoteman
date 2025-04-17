@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +9,7 @@ public enum en_Game97_Sta
     GameOver,
     TheEnd,
 }
+
 //选择场景
 public class Game97_Main : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class Game97_Main : MonoBehaviour
     public Game97_GameSel gameSel;
     public Game97_GameOver gameOver;
     public Image image_BackG;
-    public Image image_BG; 
+    public Image image_BG;
     public Image image_Cover;
     public Game00_PlayerUI[] playerUI;
     public AudioSource audioSource_BackG;//待机界面音乐
@@ -32,9 +31,8 @@ public class Game97_Main : MonoBehaviour
     float runTime;
     float time;
     int showTime;
-    int scenceNum;
+    int sceneNum;
     int playerNum;
-    public const int OpenSceneNum = 6;//展示六个场景
     readonly string[] strLanaguge = { "cn", "en" };
     int lanauage = -1;
     public void Awake0(Main mainf)
@@ -45,27 +43,12 @@ public class Game97_Main : MonoBehaviour
         {
             lanauage = Set.setVal.Language;
         }
-        if (Main.COMPANY_NUM == 4)
-        {
-            GameObject prefab = Resources.Load<GameObject>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Prefab/Game97/GameSelect");
-            GameObject obj = Instantiate(prefab, gameSel.transform.parent);
-            obj.transform.localPosition = Vector3.zero;
-            Destroy(gameSel.gameObject);
-            obj.transform.SetSiblingIndex(1);
-            gameSel = obj.GetComponent<Game97_GameSel>();
-        }
-        else if (Main.COMPANY_NUM == 10)
-        {
-            image_BackG.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-        }
 
         gameSel.Awake0(this);
         gameOver.Awake0(this);
 
         for (int i = 0; i < playerUI.Length; i++)
         {
-            //Debug.Log ("流"+2+i);
-
             playerUI[i].Awake0(null);
             playerUI[i].gameOut.Init(i);
         }
@@ -84,6 +67,7 @@ public class Game97_Main : MonoBehaviour
         }
         return true;
     }
+
     void OnEnable()
     {
         isChangeVideo = false;
@@ -101,10 +85,10 @@ public class Game97_Main : MonoBehaviour
             }
         }
     }
+
     public void GameStart()
     {
         playerNum = Main.MAX_PLAYER;
-        // playerUI[0].GameStart(0);
         if (Set.setVal.PlayerMode == (int)en_PlayerMode.One)
         {
             playerUI[1].gameObject.SetActive(false);
@@ -129,27 +113,15 @@ public class Game97_Main : MonoBehaviour
             }
             // 玩家数据清零
             PlayerDataClear();
-            //
+
             PAction.Init();
             for (int i = 0; i < Main.errorStatue.Length; i++)
             {
                 Main.errorStatue[i] = 0;
             }
-            //  Debug.Log("Update");
-#if !IO_LOCAL//海燕一体机，5+1，5个游戏调用这个方法会有死循环
-            UpdateBuffScence();
-#endif
         }
+
         IO.Init();
-
-
-
-        //#if UNITY_EDITOR
-        //        for (int i = 0; i < Main.gamePassed.Length; i++)
-        //        {
-        //            Main.gamePassed[i] = true;
-        //        }
-        //#endif
 
         if (Main.gameOver || IsAllGamePass())
         {
@@ -162,36 +134,21 @@ public class Game97_Main : MonoBehaviour
         }
         else
         {
-            if (Main.COMPANY_NUM == 1)
+            ChangeStatue(en_Game97_Sta.Idle);
+            if (Set.setVal.DeskMusic == 0 && IsCanPlay() == false)
             {
-
-                // 枪神
-                //存土
-                for (int i = 0; i < playerUI.Length; i++)
-                {
-                    playerUI[i].GameStart(i);
-                    playerUI[i].image_Cursor.gameObject.SetActive(false);
-                    playerUI[i].SetCheckPleaseCoinIn(true);
-                }
-                ChangeStatue(en_Game97_Sta.GameSelect);
+                audioSource_BackG.Stop();
             }
             else
             {
-                ChangeStatue(en_Game97_Sta.Idle);
-                if (Set.setVal.DeskMusic == 0 && IsCanPlay() == false)
-                {
-                    audioSource_BackG.Stop();
-                }
-                else
-                {
-                    audioSource_BackG.Play();
-                }
+                audioSource_BackG.Play();
             }
         }
         for (int i = 0; i < Main.MAX_PLAYER; i++)
         {
             if (FjData.g_Fj[i].Playing)
-            {//每个玩家如果在游戏就不显示
+            {
+                //每个玩家如果在游戏就不显示
                 playerUI[i].SetCheckPleaseCoinIn(false);
             }
             else
@@ -200,11 +157,13 @@ public class Game97_Main : MonoBehaviour
             }
         }
     }
+
     string diskPath;
     bool isChangeVideo;
     float videoCheckTime = 0;
     float updateTipsTime = 0;
     int updateIndex = 0;
+
     void ChangeVideoStart(int index)
     {
         isChangeVideo = true;
@@ -220,93 +179,7 @@ public class Game97_Main : MonoBehaviour
             text_UpdateFileTips.text = "Updating Chinese or English vedio: " + (updateIndex + 1).ToString("D4") + ".mp4";
         }
     }
-    void UpdateBuffScence()
-    {
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    Debug.Log(i+" : "+Set.GameSelect[i]);
-        //}
-        scenceNum = 0;
-        // Main.buffScenes = new int[OpenSceneNum];
-        for (int i = 0; i < Main.tab_GameId.Length; i++)
-        {
-            //Debug.Log (Set.GameSelect[Main.tab_GameId[i]]);
-            if (Set.GameSelect[i] == 1 && scenceNum <= 5)//展示出来的是设置的六个场景
-            {
-                Main.buffScenes[scenceNum] = Main.tab_GameId[i];
-                scenceNum++;
-            }
-        }
-        if (scenceNum < OpenSceneNum)
-        {
-            //if (scenceNum == 0)
-            //{
-            //    int temp = Random.Range(0, tab_GameId.Length);
-            //    while (isContains(Main.buffScenes, tab_GameId[temp]))
-            //        temp = Random.Range(0, tab_GameId.Length);
-            //    Main.buffScenes[scenceNum] = tab_GameId[temp];
-            //}
-            //if (scenceNum > 0)
-            //{
-            //    //if (Main.buffScenes[1] != 3)
-            //    //{
-            //    //    int no = Main.buffScenes[1];
-            //    //    Main.buffScenes[1] = 3;
-            //    //    Main.buffScenes[scenceNum] = no;
-            //    //    scenceNum++;
-            //    //}
-            //    //if (scenceNum < 5 && Main.buffScenes[2] != 4)
-            //    //{
-            //    //    int no = Main.buffScenes[2];
-            //    //    Main.buffScenes[2] = 4;
-            //    //    Main.buffScenes[scenceNum] = no;
-            //    //    scenceNum++;
-            //    //}
-            //}
-            //else
-            //{
-            //Main.buffScenes[1] = 3;
-            //Main.buffScenes[2] = 4;
-            /* if (GetIndex(Main.buffScenes, scenceNum, 3) == -1)
-             {
-                 Main.buffScenes[scenceNum] = 3;
-                 scenceNum++;
-             }
-             if (GetIndex(Main.buffScenes, scenceNum, 4) == -1 && scenceNum < 5)
-             {
-                 Main.buffScenes[scenceNum] = 4;
-                 scenceNum++;
-             }xiugai*/
-            for (int i = scenceNum; i < OpenSceneNum; i++)
-            {
-                int temp = Random.Range(0, Main.tab_GameId.Length);
-                while (GetIndex(Main.buffScenes, i, Main.tab_GameId[temp]) != -1)
-                    temp = Random.Range(0, Main.tab_GameId.Length);
-                Main.buffScenes[i] = Main.tab_GameId[temp];
-                scenceNum++;
 
-            }
-        }
-        int no = GetIndex(Main.buffScenes, scenceNum, 3);
-        if (no != 1 && no >= 0)
-        {
-            int temp = Main.buffScenes[1];
-            Main.buffScenes[1] = 3;
-            Main.buffScenes[no] = temp;
-        }
-
-        no = GetIndex(Main.buffScenes, scenceNum, 4);
-        if (no != 2 && no >= 0)
-        {
-            int temp = Main.buffScenes[2];
-            Main.buffScenes[2] = 4;
-            Main.buffScenes[no] = temp;
-        }
-        //for (int i = 0; i < Main.buffScenes.Length; i++)
-        //{
-        //    Debug.Log(Main.buffScenes[i]);
-        //}
-    }
     int GetIndex(int[] array, int len, int value)
     {
         for (int i = 0; i < array.Length && i < len; i++)
@@ -316,23 +189,7 @@ public class Game97_Main : MonoBehaviour
         }
         return -1;
     }
-    //bool isContains(int[] array, int value)
-    //{
-    //    for (int i = 0; i < array.Length; i++)
-    //    {
-    //        if (array[i] == value)
-    //            return true;
-    //    }
-    //    return false;
-    //}
 
-    void SortBuffScence()
-    {
-        //for (int i = 1; i < length; i++)
-        //{
-
-        //}
-    }
     void Update()
     {
         UDiskUpdateVideo();
@@ -350,7 +207,10 @@ public class Game97_Main : MonoBehaviour
                 {
                     if (Main.IsCanGamePlay(i))
                     {
-                        ChangeStatue(en_Game97_Sta.GameSelect);
+                        //这里是进入选择关卡界面，只有一关暂时不进入
+                        //ChangeStatue(en_Game97_Sta.GameSelect);
+                        Debug.Log("这里可以修改是否有关卡界面！");
+                        EnterGame(0);
                     }
                 }
                 break;
@@ -375,8 +235,7 @@ public class Game97_Main : MonoBehaviour
         gameIdle.gameObject.SetActive(false);
         gameSel.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
-        //		image_Cover.gameObject.SetActive(true);
-        //Debug.Log (statue);
+
         switch (statue)
         {
             case en_Game97_Sta.Idle:
@@ -418,16 +277,17 @@ public class Game97_Main : MonoBehaviour
         {
             IO.GunRunStop(i);
         }
-        //gameno = 03;
-        if(gameno == 96)
+
+        if (gameno == 96)
         {
             main.ChangeScene(en_MainStatue.Game_96);
         }
         else
         {
-            //main.ChangeScene((en_MainStatue)gameno);
-            main.ChangeScene((en_MainStatue)0);
+            //统统转到Game00
+            main.ChangeScene((en_MainStatue)gameno);
         }
+
         if (Set.setVal.InOutMode == (int)en_InOutMode.OneInOneOut)//单投单退投币数位置
         {
             playerUI[0].coinIn.transform.localPosition = new Vector3(320f, -320f, 0);
@@ -445,6 +305,7 @@ public class Game97_Main : MonoBehaviour
 #endif
         }
     }
+
     public static void PlayerDataClear()
     {
         for (int i = 0; i < Main.MAX_PLAYER; i++)
@@ -460,7 +321,6 @@ public class Game97_Main : MonoBehaviour
 
     public bool IsCanPlay()
     {
-
         for (int i = 0; i < Main.MAX_PLAYER; i++)
         {
             if (Main.IsCanGamePlay(i))
@@ -503,23 +363,7 @@ public class Game97_Main : MonoBehaviour
             {
                 videoCheckTime = 0;
             }
-            //for (int i = 0; i < MyDefine.MAX_USER_VIDEO; i++) {
-            //    string filename = (i + 1).ToString("D4") + ".mp4";
-            //    string srcpath = diskPath + filename;
-            //    if (File.Exists(srcpath)) {
-            //        string targetpath = Application.persistentDataPath + "/" + filename;
-            //        File.Copy(srcpath, targetpath, true);
-            //    }
-            //}
-            //// 声音
-            //for (int i = 0; i < 10; i++) {
-            //    string filename = (i + 1).ToString("D4") + ".mp3";
-            //    string srcpath = diskPath + filename;
-            //    if (File.Exists(srcpath)) {
-            //        string targetpath = Application.persistentDataPath + "/" + filename;
-            //        File.Copy(srcpath, targetpath, true);
-            //    }
-            //}       
+                 
             if (Set.setVal.Language == (int)en_Language.Chinese)
             {
                 text_UpdateFileTips.text = "更新完成";
@@ -562,11 +406,9 @@ public class Game97_Main : MonoBehaviour
                 FileInfo fileInfo_Src = new FileInfo(srcpath);
                 if (fileInfo_Src != null && fileInfo_Src.Exists)
                 {
-                    //if (File.Exists(srcpath)) {
                     FileInfo fileInfo_Target = new FileInfo(targetpath);
                     if (fileInfo_Target != null && fileInfo_Target.Exists)
                     {
-                        //if (File.Exists(targetpath)) {
                         if (fileInfo_Target.Length != fileInfo_Src.Length)
                         {
                             ChangeVideoStart(i);
@@ -589,11 +431,9 @@ public class Game97_Main : MonoBehaviour
                 FileInfo fileInfo_Src = new FileInfo(srcpath);
                 if (fileInfo_Src != null && fileInfo_Src.Exists)
                 {
-                    //if (File.Exists(srcpath)) {
                     FileInfo fileInfo_Target = new FileInfo(targetpath);
                     if (fileInfo_Target != null && fileInfo_Target.Exists)
                     {
-                        //if (File.Exists(targetpath)) {
                         if (fileInfo_Target.Length != fileInfo_Src.Length)
                         {
                             ChangeVideoStart(i);
@@ -607,28 +447,6 @@ public class Game97_Main : MonoBehaviour
                     }
                 }
             }
-            //// 声音
-            //for (int i = 0; i < 10; i++) {
-            //    string filename = (i + 1).ToString("D4") + ".mp3";
-            //    string srcpath = diskPath + filename;
-            //    string targetpath = Application.persistentDataPath + "/" + filename;
-
-            //    FileInfo fileInfo_Src = new FileInfo(srcpath);
-            //    if (fileInfo_Src != null && fileInfo_Src.Exists) {
-            //        //if (File.Exists(srcpath)) {
-            //        FileInfo fileInfo_Target = new FileInfo(targetpath);
-            //        if (fileInfo_Target != null && fileInfo_Target.Exists) {
-            //            //if (File.Exists(targetpath)) {
-            //            if (fileInfo_Target.Length != fileInfo_Src.Length) {
-            //                ChangeVideoStart();
-            //                return;
-            //            }
-            //        } else {
-            //            ChangeVideoStart();
-            //            return;
-            //        }
-            //    }
-            //}
         }
     }
 }

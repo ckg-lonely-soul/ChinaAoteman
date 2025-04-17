@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum en_Language
 {
@@ -338,7 +336,6 @@ public class Set
         setVal.GunMode = l1;
 #endif
         //
-
         l1 = PlayerPrefs.GetInt(SET_PlayerMode);
         if (!CheckLoad(l1, SET_c_PlayerMode))
         {
@@ -347,7 +344,6 @@ public class Set
         }
         setVal.PlayerMode = l1;
         //
-
         l1 = PlayerPrefs.GetInt(SET_TicketBl);
         if (!CheckLoad(l1, SET_c_TicketBl))
         {
@@ -460,7 +456,6 @@ public class Set
             PlayerPrefs.SetInt(SET_MinTickets, l1);
         }
         setVal.MinTickets = l1;
-
         //
         l1 = PlayerPrefs.GetInt(SET_MainSoundVolume);
         if (!CheckLoad(l1, SET_c_MainSoundVolume))
@@ -477,7 +472,6 @@ public class Set
             PlayerPrefs.SetInt(SET_SysVolume, l1);
         }
         setVal.SysVolume = l1;//l1   默认值  音量为50
-                              //Debug.Log (setVal.SysVolume);
         //
         l1 = PlayerPrefs.GetInt(SET_Password);
         if (l1 < MIN_PASSWORD || l1 > MAX_PASSWORD)
@@ -503,7 +497,6 @@ public class Set
         }
         setVal.ChildrenSong = l1;
         //
-
         for (int i = 0; i < GameSelect.Length; i++)
         {
             l1 = PlayerPrefs.GetInt(SET_GameSelect + i);
@@ -514,59 +507,7 @@ public class Set
             }
             GameSelect[i] = l1;
         }
-        //      //
-        //      l1 = PlayerPrefs.GetInt(SET_UpCentBl) ;
-        //if (!CheckLoad (l1, SET_c_UpCentBl)) {
-        //	l1 = SET_c_UpCentBl [0];
-        //	PlayerPrefs.SetInt(SET_UpCentBl, l1) ;
-        //}
-        //      //
-        //      setVal.UpCentBl = l1;
-        ////
-        //l1 = PlayerPrefs.GetInt(SET_MinOut) ;
-        //if (!CheckLoad (l1, SET_c_MinOut)) {
-        //	l1 = SET_c_MinOut [0];
-        //	PlayerPrefs.SetInt(SET_MinOut, l1) ;
-        //}
-        //setVal.MinOut = l1;
-        ////
-        //l1 = PlayerPrefs.GetInt(SET_MaxOut) ;
-        //if (!CheckLoad (l1, SET_c_MaxOut)) {
-        //	l1 = SET_c_MaxOut [0];
-        //	PlayerPrefs.SetInt(SET_MaxOut, l1) ;
-        //}
-        //setVal.MaxOut = l1;
-        ////
-        //l1 = PlayerPrefs.GetInt(SET_OverflowCent) ;
-        //if (!CheckLoad (l1, SET_c_OverflowCent)) {
-        //	l1 = SET_c_OverflowCent [0];
-        //	PlayerPrefs.SetInt(SET_OverflowCent, l1) ;
-        //}
-        //setVal.OverflowCent = l1;
-        ////
-        //l1 = PlayerPrefs.GetInt(SET_Odds) ;
-        //if (!CheckLoad (l1, SET_c_Odds)) {
-        //	l1 = SET_c_Odds [0];
-        //	PlayerPrefs.SetInt(SET_Odds, l1) ;
-        //}
-        //setVal.Odds = l1;
-        ////
-        //l1 = PlayerPrefs.GetInt(SET_Wave) ;
-        //if (!CheckLoad (l1, SET_c_Wave)) {
-        //	l1 = SET_c_Wave [0];
-        //	PlayerPrefs.SetInt(SET_Wave, l1) ;
-        //}
-        //setVal.Wave = l1;
-
-
-
-
-        // 测试 -----------------------------------------
-        //		setVal.GameMode = 2;
-        ////
-        //setVal.MainSoundVolume = 1;
-        //setVal.IoSoundVolume = 1;
-        //setVal.Odds = 0;
+        
     }
     public static void SaveOddsAndWave()
     {
@@ -607,7 +548,6 @@ public class Set
         PlayerPrefs.SetInt(SET_TicketsOneCoin, setVal.TicketsOneCoin);
         PlayerPrefs.SetInt(SET_EditerOneCoin, setVal.EditerOneCoin);
         PlayerPrefs.SetInt(SET_MinTickets, setVal.MinTickets);
-        //
         PlayerPrefs.SetInt(SET_MainSoundVolume, setVal.MainSoundVolume);
 
         //PlayerPrefs.SetInt(SET_UpCentBl, setVal.UpCentBl);
@@ -670,28 +610,18 @@ public class Set
         setVal.MonsterNum_2 = 50;
         setVal.MonsterNum_3 = 40;
         setVal.ScoreTtl = 0;
-        setVal.DeskMusic = 0;   //
-        setVal.ShowQrCode = 0;   //
-        setVal.TicketsOneCoin = 20;				// 
-        setVal.EditerOneCoin = 40;				// 
+        setVal.DeskMusic = 0;   
+        setVal.ShowQrCode = 0;   
+        setVal.TicketsOneCoin = 20;				
+        setVal.EditerOneCoin = 40;				
         setVal.MinTickets = 0;
         setVal.MP5GunShake = 1;
         setVal.ChildrenSong = 1;
-        // 
         setVal.MainSoundVolume = 8;		// 主机音量
 
-        if (Main.COMPANY_NUM == 1 || Main.COMPANY_NUM == 8)
-        {
-            setVal.PlayerMode = (int)en_PlayerMode.One;
-            if(Main.COMPANY_NUM == 8)
-            {
-                setVal.GameTime = 300;
-            }
-        }
-
-        //      setVal.MinOut = 1;				// 最小退币
+        //setVal.MinOut = 1;			// 最小退币
         //setVal.MaxOut = 500;			// 最大退币
-        //setVal.OverflowCent = 50000	;	// 爆机分数
+        //setVal.OverflowCent = 50000	// 爆机分数
         //setVal.Odds = 1;				// 难度
         //setVal.Wave = 0;				// 波动
 
@@ -733,7 +663,7 @@ public class Set
         buf[index++] = (byte)setVal.SysVolume;
         return index - offset;
     }
-    //
+    
     public static void Test()
     {
         setVal.GameMode = (int)en_GameMode.Yule;        // 游戏模式: 0: 娱乐1-倒计时, 1:娱乐2-得分退礼品; 2:博彩模式
@@ -744,7 +674,7 @@ public class Set
         setVal.TicketBl = 10;			// 彩票比率
         setVal.GiftBl = 100;
         setVal.GameTime = 30;			// 游戏时间(自动出兵时间)
-        setVal.ScoreTtl = 0;            //
+        setVal.ScoreTtl = 0;            
 
         setVal.TicketsOneCoin = 0;
         setVal.EditerOneCoin = 0;

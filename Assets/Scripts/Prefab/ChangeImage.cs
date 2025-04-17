@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using System;
 
 
 // Sprite 精灵的变换 ; 移动,缩放,透明度; 
-public class ChangeImage : MonoBehaviour {
-    public enum en_Change_MoveType {
+public class ChangeImage : MonoBehaviour
+{
+    public enum en_Change_MoveType
+    {
         Up = 0,         //	向上
         Down,           //	向下
         Left,           //	向左
@@ -44,7 +41,8 @@ public class ChangeImage : MonoBehaviour {
     Image[] spriteRendererChildren;    // 子对象的 
 
     //
-    void Awake() {
+    void Awake()
+    {
         spriteRenderer = GetComponent<Image>();
         spriteRendererChildren = GetComponentsInChildren<Image>();
 
@@ -55,87 +53,113 @@ public class ChangeImage : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         //
-        if (showTime > 0) {
+        if (showTime > 0)
+        {
             showTime -= Time.deltaTime;
-            if (showTime <= 0) {
+            if (showTime <= 0)
+            {
                 Destroy(gameObject);
                 return;
             }
         }
 
         // 透明变化
-        if (transparentDelay > 0) {
+        if (transparentDelay > 0)
+        {
             transparentDelay -= Time.deltaTime;
-        } else if (transparentSpeed > 0) {
+        }
+        else if (transparentSpeed > 0)
+        {
             transparent -= Time.deltaTime * transparentSpeed;
-            if (transparent <= 0) {
+            if (transparent <= 0)
+            {
                 Destroy(gameObject);
                 return;
             }
             //
-            if (spriteRenderer) {
+            if (spriteRenderer)
+            {
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, transparent);
             }
             //
-            foreach (Image sp in spriteRendererChildren) {
+            foreach (Image sp in spriteRendererChildren)
+            {
                 sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, transparent);
             }
         }
         // 移动变化
-        if (moveDelay > 0) {
+        if (moveDelay > 0)
+        {
             moveDelay -= Time.deltaTime;
-        } else if (moveSpeed > 0) {
-            if (moveLimit == 0 || (moveLimit > 0 && moveDistance < moveLimit)) {
-                switch (moveType) {
-                case en_Change_MoveType.Up:
-                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
-                    break;
-                case en_Change_MoveType.Down:
-                    transform.Translate(Vector3.down * Time.deltaTime * moveSpeed);
-                    break;
-                case en_Change_MoveType.Left:
-                    transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
-                    break;
-                case en_Change_MoveType.Right:
-                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-                    break;
-                case en_Change_MoveType.Fornt:
-                    transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
-                    break;
-                case en_Change_MoveType.Back:
-                    transform.Translate(Vector3.back * Time.deltaTime * moveSpeed);
-                    break;
+        }
+        else if (moveSpeed > 0)
+        {
+            if (moveLimit == 0 || (moveLimit > 0 && moveDistance < moveLimit))
+            {
+                switch (moveType)
+                {
+                    case en_Change_MoveType.Up:
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                        break;
+                    case en_Change_MoveType.Down:
+                        transform.Translate(Vector3.down * Time.deltaTime * moveSpeed);
+                        break;
+                    case en_Change_MoveType.Left:
+                        transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
+                        break;
+                    case en_Change_MoveType.Right:
+                        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                        break;
+                    case en_Change_MoveType.Fornt:
+                        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+                        break;
+                    case en_Change_MoveType.Back:
+                        transform.Translate(Vector3.back * Time.deltaTime * moveSpeed);
+                        break;
                 }
                 moveDistance += Time.deltaTime * moveSpeed;
             }
         }
         // 缩放变化
-        if (scaleDelay > 0) {
+        if (scaleDelay > 0)
+        {
             scaleDelay -= Time.deltaTime;
-        } else if (scaleSpeed != 0) {
-            if (scaleLimit > 0) {
+        }
+        else if (scaleSpeed != 0)
+        {
+            if (scaleLimit > 0)
+            {
                 if ((scaleSpeed > 0 && scale >= scaleLimit) || (scaleSpeed < 0 && scale <= scaleLimit))
                     return;
             }
             scale += Time.deltaTime * scaleSpeed;
-            if (scale <= 0) {
+            if (scale <= 0)
+            {
                 Destroy(gameObject);
                 return;
             }
-            if (scaleLimit > 0) {
-                if (scaleSpeed > 0) {
-                    if (scale >= scaleLimit) {
+            if (scaleLimit > 0)
+            {
+                if (scaleSpeed > 0)
+                {
+                    if (scale >= scaleLimit)
+                    {
                         scale = scaleLimit;
                     }
-                } else {
-                    if (scale < scaleLimit) {
+                }
+                else
+                {
+                    if (scale < scaleLimit)
+                    {
                         scale = scaleLimit;
                     }
                 }

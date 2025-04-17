@@ -148,19 +148,19 @@ namespace UnityEngine.Rendering.PostProcessing
             // Negative anamorphic ratio values distort vertically - positive is horizontal
             float ratio = Mathf.Clamp(settings.anamorphicRatio, -1, 1);
             float rw = ratio < 0 ? -ratio : 0f;
-            float rh = ratio > 0 ?  ratio : 0f;
+            float rh = ratio > 0 ? ratio : 0f;
 
             // Do bloom on a half-res buffer, full-res doesn't bring much and kills performances on
             // fillrate limited platforms
             int tw = Mathf.FloorToInt(context.screenWidth / (2f - rw));
             int th = Mathf.FloorToInt(context.screenHeight / (2f - rh));
             bool singlePassDoubleWide = (context.stereoActive && (context.stereoRenderingMode == PostProcessRenderContext.StereoRenderingMode.SinglePass) && (context.camera.stereoTargetEye == StereoTargetEyeMask.Both));
-            int tw_stereo = singlePassDoubleWide ? tw * 2 : tw; 
+            int tw_stereo = singlePassDoubleWide ? tw * 2 : tw;
 
             // Determine the iteration count
             int s = Mathf.Max(tw, th);
             float logs = Mathf.Log(s, 2f) + Mathf.Min(settings.diffusion.value, 10f) - 10f;
-            int logs_i = Mathf.FloorToInt(logs); 
+            int logs_i = Mathf.FloorToInt(logs);
             int iterations = Mathf.Clamp(logs_i, 1, k_MaxPyramidSize);
             float sampleScale = 0.5f + logs - logs_i;
             sheet.properties.SetFloat(ShaderIDs.SampleScale, sampleScale);

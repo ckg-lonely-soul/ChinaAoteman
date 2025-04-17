@@ -1,14 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Menu_GameSelect : MonoBehaviour
 {
+
+    string[] tab_GameName_CN = {
+        "中华超人",     // 00
+    };
+
     const int MAX_SET_ONEPAGE = 24;
-    //int MAX_ALL_SET_SEL = Main.tab_GameId.Length;
     int MAX_SET_SEL = 20;
-    int MAX_SEL = 8;// = MAX_SET_SEL + 3;
+    int MAX_SEL = 8;
 
     // 要显示的内容(中英文切换)    
     public Text text_GameSet;
@@ -18,7 +20,7 @@ public class Menu_GameSelect : MonoBehaviour
     public GameObject setVal_Prefab;
     // 设置项    
     SetValue[] setVal = new SetValue[Main.tab_GameId.Length];
-    //
+
     static int postIndex;
     static bool selectSta;
 
@@ -29,19 +31,18 @@ public class Menu_GameSelect : MonoBehaviour
     //
     public void Awake0(Menu mmenu)
     {
-        //
         menu = mmenu;
         passwordManager = menu.passwordManager;
         menuTips = menu.menuTips;
-        //
+
         GameObject obj;
         for (int i = 0; i < Main.tab_GameId.Length; i++)
         {
             obj = Instantiate(setVal_Prefab, setVal_Layer.transform);
             setVal[i] = obj.GetComponent<SetValue>();
         }
+
         SetVal_Init();
-        // UpdateSetValPos();
     }
 
     void Update()
@@ -81,7 +82,7 @@ public class Menu_GameSelect : MonoBehaviour
                     if (menuTips.result)
                     {
                         OnButton_SetDefault_Pressed();
-                        //OnButton_SetBack_Pressed();                        
+                    
                         if (Set.setVal.Language == (int)en_Language.Chinese)
                         {
                             menuTips.Init(en_MenuTipsType.Tips, "恢复默认值成功", 3);
@@ -105,26 +106,6 @@ public class Menu_GameSelect : MonoBehaviour
             }
         }
 
-
-
-        /*	if (Key.MENU_UpPressed ()) {
-                if (selectSta == false) {
-                    if (postIndex >= MAX_SET_SEL) {
-                        postIndex = MAX_SET_SEL - 1;
-                    } else {
-                        postIndex = (postIndex + MAX_SEL - 1) % MAX_SEL;
-                        UpdateSetValPos();
-                    }
-                    UpdateCursor ();
-                }
-            }
-            if (Key.MENU_DownPressed ()) {
-                if (selectSta == false) {
-                    postIndex = (postIndex + 1) % MAX_SEL;
-                    UpdateSetValPos();
-                    UpdateCursor ();
-                }
-            } */
         if (Key.MENU_LeftPressed() || Key.KEYFJ_Menu_LeftPressed())
         {
             if (selectSta == true)
@@ -139,11 +120,6 @@ public class Menu_GameSelect : MonoBehaviour
                 postIndex = (postIndex + MAX_SEL - 1) % MAX_SEL;
                 UpdateSetValPos();
                 UpdateCursor();
-                //	if (postIndex > MAX_SET_SEL) {
-                //		postIndex--;
-                //		UpdateSetValPos();
-                //		UpdateCursor ();
-                //	}
             }
         }
         if (Key.MENU_RightPressed() || Key.KEYFJ_Menu_RightPressed())
@@ -160,11 +136,6 @@ public class Menu_GameSelect : MonoBehaviour
                 postIndex = (postIndex + 1) % MAX_SEL;
                 UpdateSetValPos();
                 UpdateCursor();
-                //	if (postIndex >= MAX_SET_SEL) {
-                //		postIndex = (postIndex + 1) % MAX_SEL;
-                //		UpdateSetValPos();
-                //		UpdateCursor ();
-                //	}
             }
         }
         if (Key.MENU_OkPressed() || Key.KEYFJ_Menu_OkPressed())
@@ -232,6 +203,7 @@ public class Menu_GameSelect : MonoBehaviour
             selectFlag.Init(setVal[postIndex].image_ValueBackG.rectTransform.sizeDelta.x);
         }
     }
+
     // 更新光标坐标和大小
     void UpdateCursor()
     {
@@ -260,7 +232,7 @@ public class Menu_GameSelect : MonoBehaviour
             }
         }
     }
-    //
+
     void UpdateSetValPos()
     {
         int id = postIndex;
@@ -274,7 +246,6 @@ public class Menu_GameSelect : MonoBehaviour
             if ((i / MAX_SET_ONEPAGE) == page)
             {
                 setVal[i].gameObject.SetActive(true);
-                //setVal[i].transform.localPosition = new Vector3(0, 220 - (i % MAX_SET_ONEPAGE) * 70, 0);
                 pindex = i % MAX_SET_ONEPAGE;
                 setVal[i].transform.localPosition = new Vector3((pindex % 3) * 340 - 340, 190 - (pindex / 3) * 60, 0);
             }
@@ -298,6 +269,7 @@ public class Menu_GameSelect : MonoBehaviour
         UpdataCursor_Select(false);
         UpdateCursor();
     }
+
     // 2.更新显示中英文
     public void UpdateLanguage()
     {
@@ -322,17 +294,16 @@ public class Menu_GameSelect : MonoBehaviour
         SetVal_UpdataLanguage();
     }
 
-
     public void OnButton_SetDefault_Pressed()
     {
         Set.DefaultGameSelect();
         GameStart();
     }
+
     public void OnButton_SetBack_Pressed()
     {
         menu.ChangeStatue(en_MenuStatue.MenuSta_SysSet);
     }
-
 
     // 右键设置++
     void GameSetVal_Right()
@@ -352,8 +323,6 @@ public class Menu_GameSelect : MonoBehaviour
         }
     }
 
-    // 需要修改的部分 --------------------------------------------------------------------------------------------------------------------------------------------
-    //
     void SetVal_Init()
     {
         //** 1.设置项初始化(代替在界面里直接真写) : 初始化全部可选择列表
@@ -362,11 +331,10 @@ public class Menu_GameSelect : MonoBehaviour
             setVal[i].SetValueInit(Set.SET_c_GameSelect);
         }
     }
+
     // 排序， 不同模式
     void UpdateOrder()
     {
-        //MAX_SET_SEL = MAX_ALL_SET_SEL;
-        //MAX_SEL = MAX_SET_SEL + 3;
         // 关闭所有选项
         for (int i = 0; i < setVal.Length; i++)
         {
@@ -376,100 +344,6 @@ public class Menu_GameSelect : MonoBehaviour
         UpdateSetValPos();
     }
 
-    string[] tab_GameName_CN = {
-        "冰雪机械",     // 00
-        "异域战士",     // 01
-        "冰封魔族",     // 02
-        "动物森林",     // 03
-        "军事基地",     // 04
-        "未来街道",     // 05
-        "枪手突围",     // 06
-        "城市突击",     // 07
-        "魔方世界",     // 08
-        "西部危机",     // 09
-        "丛林探索",     // 10
-        "魔幻天空",     // 11
-        "突击街道",     // 12
-        "荒野小妖",     // 13
-        "机关迷宫",     // 14
-        "埃及传说",     // 15
-        "魔兽争霸",     // 16
-        "疯狂动物城",   // 17
-        "黑暗领域",     // 18
-        "皇室领地",     // 19
-        "天空城堡",     // 20
-        "太空站",       // 21
-    };
-    string[] tab_GameName04_CN = {
-        "冰雪朋克",    // 00     
-        "外域勇士",    // 01
-        "冰封魔族",    // 02
-        "动物之森",    // 03
-        "军事堡垒",    // 04
-        "未来街道",    // 05
-        "士兵突击",    // 06
-        "城市突击",    // 07
-        "我的世界",    // 08
-        "西部枪手",    // 09
-        "丛林探索",    // 10
-        "魔幻天空",    // 11
-        "街道突围",    // 12
-        "荒野小妖",    // 13
-        "机关迷宫",    // 14
-        "埃及传说",    // 15
-        "魔兽争霸",    // 16
-        "疯狂动物城",  // 17,
-        "黑暗领域",    // 18
-        "皇室领地",    // 19
-        "天空之城",    // 20
-    };
-    string[] tab_GameName05_CN = {
-        "冰雪朋克",    // 00
-        "外域勇士",    // 01
-        "冰川魔域",    // 02
-        "动物之森",    // 03
-        "军事堡垒",    // 04
-        "空中街道",    // 05
-        "枪手突击",    // 06
-        "城市突围",    // 07
-        "我的世界",    // 08
-        "西部枪手",    // 09
-        "森林探索",    // 10
-        "魔幻世界",    // 11
-        "街道突围",    // 12
-        "精灵小妖",    // 13
-        "突围迷宫",    // 14
-        "埃及机关",    // 15
-        "魔兽争霸",    // 16
-        "动物乐园",    // 17
-        "未知领域",    // 18
-        "皇者领地",    // 19
-        "天空之城",    // 20
-    };
-    string[] tab_GameName01YT_CN = {//海燕枪神5+1一体机
-        "冰雪朋克",    // 00
-        "外域勇士",    // 01
-        "冰川魔域",    // 02
-        "动物之森",    // 03
-        "军事堡垒",    // 04
-        "空中街道",    // 05
-        "枪手突击",    // 06
-        "城市突围",    // 07
-        "我的世界",    // 08
-        "西部枪手",    // 09
-        "森林探索",    // 10
-        "魔幻世界",    // 11
-        "街道突围",    // 12
-        "精灵小妖",    // 13
-        "突围迷宫",    // 14
-        "埃及机关",    // 15
-        "魔兽争霸",    // 16
-        "动物乐园",    // 17
-        "未知领域",    // 18
-        "皇者领地",    // 19
-        "天空之城",    // 20
-        "MP5",         // 96
-    };
     // 2.更新显示中英文
     void SetVal_UpdataLanguage()
     {
@@ -477,45 +351,17 @@ public class Menu_GameSelect : MonoBehaviour
         {
             // 要显示的设置项 名称
             string[] tab_GameName;
-            if (Main.COMPANY_NUM == 1)//枪神
-            {
-#if IO_LOCAL
-                tab_GameName = tab_GameName01YT_CN;
-#else
-                tab_GameName = tab_GameName_CN;
-#endif
-            }
-            else if (Main.COMPANY_NUM == 4)
-            {
-                tab_GameName = tab_GameName04_CN;
-            }
-            else if (Main.COMPANY_NUM == 5)
-            {
-                tab_GameName = tab_GameName05_CN;
-            }
-            else
-            {
-                tab_GameName = tab_GameName_CN;
-            }
+            tab_GameName = tab_GameName_CN;
+
             // 设置项值: 
             for (int i = 0; i < setVal.Length; i++)
             {
                 if (i < tab_GameName.Length)
                 {
 #if IO_LOCAL
-                    if(Main.COMPANY_NUM == 1)
-                    {
-                        if(Main.tab_GameId[i] == 96)//mp5
-                        {
-                            setVal[i].SetSelectName(tab_GameName[21]); //(i + 1).ToString("D2") + "." + 
-                        }
-                        else
-                        {
-                            setVal[i].SetSelectName(tab_GameName[Main.tab_GameId[i]]); //(i + 1).ToString("D2") + "." + 
-                        }
-                    }
+                    
 #else
-                    setVal[i].SetSelectName(tab_GameName[Main.tab_GameId[i]]); //(i + 1).ToString("D2") + "." + 
+                    setVal[i].SetSelectName(tab_GameName[Main.tab_GameId[i]]);
 #endif
                 }
                 setVal[i].SetValueName(0, "关");
@@ -528,17 +374,7 @@ public class Menu_GameSelect : MonoBehaviour
             for (int i = 0; i < setVal.Length; i++)
             {
 #if IO_LOCAL
-                if(Main.COMPANY_NUM == 1)
-                {
-                    if(i == setVal.Length - 1)//最后一个是mp5
-                    {
-                        setVal[i].SetSelectName("MP5");
-                    }
-                    else
-                    {
-                        setVal[i].SetSelectName("Game " + (i + 1));
-                    }
-                }
+                
 #else
                 setVal[i].SetSelectName("Game " + (i + 1));
 #endif
@@ -551,6 +387,7 @@ public class Menu_GameSelect : MonoBehaviour
             }
         }
     }
+
     // 更新设置内容 :
     void UpdataGameSet()
     {
@@ -559,6 +396,7 @@ public class Menu_GameSelect : MonoBehaviour
             setVal[i].UpdateValue(Set.GameSelect[i]);
         }
     }
+
     bool IsCloseAllGame()
     {
         for (int i = 0; i < Main.tab_GameId.Length; i++)
@@ -570,14 +408,14 @@ public class Menu_GameSelect : MonoBehaviour
         }
         return true;
     }
-    //按键 ------
+
+    //按键
     public void OnButton_SetSave_Pressed()
     {
 
         for (int i = 0; i < setVal.Length; i++)
         {
             Set.GameSelect[i] = setVal[i].GetValue();
-            //Debug.Log("GameSelect_" + i + ":" + Set.GameSelect[i]);
         }
         if (IsCloseAllGame())
         {

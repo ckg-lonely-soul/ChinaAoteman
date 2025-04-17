@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Menu_WinSet : MonoBehaviour {
+public class Menu_WinSet : MonoBehaviour
+{
     const int MAX_SET_ONEPAGE = 12;
     int MAX_SET_SEL;// = 12;
     int MAX_SEL;// = MAX_SET_SEL + 3;
@@ -452,7 +451,7 @@ public class Menu_WinSet : MonoBehaviour {
     //    } else {
     //        winGift += setVal[SET_ID_BoxWinGiftCnt1].GetValue() * 1;
     //    }
-        
+
     //    // 100局出卡数：
     //    text_Descript[0].text = winCard.ToString();
     //    // 100局出扭蛋数：

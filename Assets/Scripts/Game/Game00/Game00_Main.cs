@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,9 +18,10 @@ public enum en_Game00_Sta
 
 public class Game00_Main : MonoBehaviour
 {
-    const float DEFAULT_MOVE_SPEED = 3.5f;
+    const float DEFAULT_MOVE_SPEED = 20f;
     const int MAX_MONSTER = 20;
 
+    public Zhcr zhcr;
     public Game00_GameUI gameUI;
     public GameObject shakeMain_Obj;
     public NavMeshAgent navMeshAgent_MainCar;
@@ -42,12 +42,10 @@ public class Game00_Main : MonoBehaviour
     public GameObject[] daoJu_Prefab;           // 道具:
     public GameObject testObj_Prefab;
     public int index;
-    //public GameObject gameOver;
 
     // 声音
     public AudioSource audioSource_BackG;       // 背景音乐
     public AudioSource audioSource_BossWarning; //
-    //public AudioSource audioSource_GameOver;    //
     public AudioSource audioSource_GamePass;    //
     public AudioClip audioClip_Fire;            // (枪王)枪开火声音
     public int maxMonsterNum = 7;               // 当前怪最大个数(自由出怪)
@@ -92,168 +90,19 @@ public class Game00_Main : MonoBehaviour
     float colora;
     int playerNum = Main.MAX_PLAYER;
 
-    /*public void GameOver(){
-		//Game97_Main.Awake0();//gameOver.Awake0
-		gameOver.gameObject.SetActive(true);
-		Game97_Main.gameOver.GameStart();
-		for (int i = 0; i < Main.gamePassed.Length; i++)
-		{
-			Main.gamePassed[i] = false;
-		}
-		Game97_Main.PlayerDataClear();
-	}
-*/
-    // 怪参数
-    // 血量
-    //readonly int[] tab_MonsterBlood_00 = { 80, 80, 80, 90, 90, 100, 120, 140, 200, 8000 };
-    //readonly int[] tab_MonsterBlood_01 = { 80, 80, 80, 90, 8000, 80, 90, 90, 200, 500, 200, 8000 };
-    readonly int[] tab_MonsterBlood_00 = { 130, 130, 130, 150, 300, 6000, 200, 150, 150, 200 };//每个多加了个0
-    //readonly int[] tab_MonsterBlood_01 = { 20, 20, 20, 100, 8000, 50, 60, 60, 70, 500, 200, 8000 };
-    readonly int[] tab_MonsterBlood_01 = { 6000, 140, 150, 160, 120, 180, 190, 200, 190, 200, 190, 180, 130, 150, 140 };
-#if UNITY_EDITOR
-    readonly int[] tab_MonsterBlood_02 = { 6000, 140, 150, 160, 170, 180, 190, 200, 190, 180 };
-#else
-    readonly int[] tab_MonsterBlood_02 = { 6000, 140, 150, 160, 170, 180, 190, 200, 190, 180 };
-//    readonly int[] tab_MonsterBlood_02 = { 200, 220, 240, 240, 260, 180, 280, 300, 360, 8000 };
-#endif
-    readonly int[] tab_MonsterBlood_03 = { 80, 80, 80, 90, 90, 100, 120, 140, 6000 };
-    readonly int[] tab_MonsterBlood_04 = { 6000, 150, 160, 130, 180, 160, 120, 140, 200, 200, 200, 200 };
-    readonly int[] tab_MonsterBlood_05 = { 6000, 80, 100, 120, 140, 140, 140, 140, 140 };
-    readonly int[] tab_MonsterBlood_06 = { 6000, 140, 150, 160, 170, 180, 190, 200, 190, 180 };
-    readonly int[] tab_MonsterBlood_07 = { 6000, 100, 110, 130, 150, 170, 180, 190, 200, 210 };
-    readonly int[] tab_MonsterBlood_08 = { 150, 150, 130, 120, 160, 140, 120, 140, 180, 150, 200, 6000 };
-    readonly int[] tab_MonsterBlood_09 = { 150, 150, 130, 120, 160, 140, 120, 140, 180, 150, 200, 6000 };
-    readonly int[] tab_MonsterBlood_10 = { 150, 150, 140, 140, 160, 120, 130, 4000 };
-    readonly int[] tab_MonsterBlood_11 = { 200, 210, 230, 220, 210, 200, 230, 240, 180, 6000 };
-    readonly int[] tab_MonsterBlood_12 = { 6000, 140, 150, 160, 170, 180, 190, 200, 190, 180 };
-    readonly int[] tab_MonsterBlood_13 = { 150, 150, 140, 140, 160, 120, 130, 4000, 200, 4000 };
-    readonly int[] tab_MonsterBlood_14 = { 200, 210, 230, 220, 210, 200, 230, 240, 180, 6000 };
-    readonly int[] tab_MonsterBlood_15 = { 120, 140, 150, 160, 170, 130, 140, 150, 160, 6000 };
-    readonly int[] tab_MonsterBlood_16 = { 6000, 140, 150, 160, 100, 180, 190, 200, 190, 180, 130 };
-    readonly int[] tab_MonsterBlood_17 = { 110, 100, 120, 130, 110, 100, 120, 140, 6000 };
-    readonly int[] tab_MonsterBlood_18 = { 6000, 100, 110, 130, 150, 170, 180, 190, 200, 210 };
-    readonly int[] tab_MonsterBlood_19 = { 120, 140, 150, 160, 170, 130, 140, 150, 160, 6000 };
-    readonly int[] tab_MonsterBlood_20 = { 6000, 140, 150, 160, 170, 180 };
-    readonly int[] tab_MonsterBlood_21 = { 60000, 200, 200, 500, 800, 200, 500, 200, 200, 3000, 200, 200 };
-    readonly int[] tab_MonsterBlood_22 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_23 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_24 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_25 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_26 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_27 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_28 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_29 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_30 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_31 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_32 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_33 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_34 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_35 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_36 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_37 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_38 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_39 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
-    readonly int[] tab_MonsterBlood_40 = { 6000, 120, 140, 150, 160, 170, 130, 140, 150, 160 };
 
-
-
-
-
+    readonly int[] tab_MonsterBlood_00 = { 3000, 130, 130, 130, 130 };//每个多加了个0
 
     public int[] tab_MonsterBlood;
     // 分数
-    readonly int[] tab_MonsterScore_00 = { 10, 12, 14, 16, 18, 500, 24, 30, 60, 60 };
-    readonly int[] tab_MonsterScore_01 = { 800, 12, 14, 16, 18, 20, 22, 13, 17, 21, 23, 16, 18, 22 };
-    readonly int[] tab_MonsterScore_02 = { 500, 12, 14, 16, 18, 20, 22, 13, 17, 21 };
-    readonly int[] tab_MonsterScore_03 = { 10, 12, 14, 16, 18, 20, 24, 30, 700 };
-    readonly int[] tab_MonsterScore_04 = { 800, 12, 14, 16, 18, 20, 24, 26, 30, 32, 32, 32 };
-    readonly int[] tab_MonsterScore_05 = { 400, 12, 14, 16, 18, 18, 18, 18, 18 };
-    readonly int[] tab_MonsterScore_06 = { 500, 12, 14, 16, 18, 20, 22, 13, 17, 21 };
-    readonly int[] tab_MonsterScore_07 = { 800, 12, 14, 16, 18, 20, 24, 30, 28, 26 };
-    readonly int[] tab_MonsterScore_08 = { 10, 12, 14, 16, 18, 20, 24, 30, 30, 30, 30, 500 };
-    readonly int[] tab_MonsterScore_09 = { 10, 12, 14, 16, 18, 20, 24, 30, 30, 30, 30, 500 };
-    readonly int[] tab_MonsterScore_10 = { 10, 12, 14, 16, 18, 20, 24, 800 };
-    readonly int[] tab_MonsterScore_11 = { 10, 12, 14, 16, 18, 20, 24, 30, 33, 500 };
-    readonly int[] tab_MonsterScore_12 = { 800, 12, 14, 16, 18, 20, 22, 13, 17, 21 };
-    readonly int[] tab_MonsterScore_13 = { 10, 12, 14, 16, 18, 20, 24, 800, 60, 500 };
-    readonly int[] tab_MonsterScore_14 = { 10, 12, 14, 16, 18, 20, 24, 30, 33, 500 };
-    readonly int[] tab_MonsterScore_15 = { 10, 12, 14, 16, 18, 20, 24, 30, 60, 500 };
-    readonly int[] tab_MonsterScore_16 = { 800, 12, 14, 16, 18, 20, 22, 13, 17, 21, 23 };
-    readonly int[] tab_MonsterScore_17 = { 10, 12, 14, 16, 18, 20, 24, 30, 700 };
-    readonly int[] tab_MonsterScore_18 = { 800, 12, 14, 16, 18, 20, 24, 30, 60, 80 };
-    readonly int[] tab_MonsterScore_19 = { 10, 12, 14, 16, 18, 20, 24, 30, 60, 500 };
-    readonly int[] tab_MonsterScore_20 = { 500, 16, 18, 20, 24, 30 };
-    readonly int[] tab_MonsterScore_21 = { 800, 14, 14, 20, 25, 14, 20, 18, 14, 30, 14, 14 };
-    readonly int[] tab_MonsterScore_22 = { 800, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_23 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_24 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_25 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_26 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_27 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_28 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-
-    readonly int[] tab_MonsterScore_29 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_30 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_31 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_32 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_33 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_34 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_35 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_36 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_37 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_38 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_39 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-    readonly int[] tab_MonsterScore_40 = { 500, 12, 14, 16, 18, 20, 24, 30, 60, 10 };
-
-
+    readonly int[] tab_MonsterScore_00 = { 500, 20, 20, 20, 20};
 
     public int[] tab_MonsterScore;
     // 攻击值
-    readonly int[] tab_MonsterAttack_00 = { 5, 6, 7, 8, 9, 100, 12, 15, 30, 22 };
-    readonly int[] tab_MonsterAttack_01 = { 60, 6, 10, 13, 15, 10, 11, 11, 13, 15, 17, 16, 14 };
-    readonly int[] tab_MonsterAttack_02 = { 60, 6, 10, 13, 15, 10, 11, 11, 13, 15 };//00
-    readonly int[] tab_MonsterAttack_03 = { 5, 6, 7, 8, 9, 10, 12, 15, 60 };
-    readonly int[] tab_MonsterAttack_04 = { 60, 6, 7, 8, 9, 10, 12, 14, 16, 17, 18, 12 };
-    readonly int[] tab_MonsterAttack_05 = { 60, 6, 7, 8, 9, 9, 9, 9, 9 };
-    readonly int[] tab_MonsterAttack_06 = { 60, 6, 10, 13, 15, 10, 11, 11, 13, 15 };
-    readonly int[] tab_MonsterAttack_07 = { 60, 6, 7, 8, 9, 10, 12, 15, 18, 21 };
-    readonly int[] tab_MonsterAttack_08 = { 5, 6, 7, 8, 9, 10, 12, 15, 30, 30, 30, 100 };
-    readonly int[] tab_MonsterAttack_09 = { 5, 6, 7, 8, 9, 10, 12, 15, 17, 19, 20, 100 };
-    readonly int[] tab_MonsterAttack_10 = { 5, 6, 7, 8, 9, 10, 12, 40 };
-    readonly int[] tab_MonsterAttack_11 = { 5, 6, 7, 8, 9, 10, 12, 15, 17, 100 };
-    readonly int[] tab_MonsterAttack_12 = { 60, 6, 10, 13, 15, 10, 11, 11, 13, 15 };
-    readonly int[] tab_MonsterAttack_13 = { 5, 6, 7, 8, 9, 10, 12, 40, 30, 32 };
-    readonly int[] tab_MonsterAttack_14 = { 5, 6, 7, 8, 9, 10, 12, 15, 17, 100 };
-    readonly int[] tab_MonsterAttack_15 = { 5, 6, 7, 8, 9, 10, 12, 15, 30, 100 };
-    readonly int[] tab_MonsterAttack_16 = { 60, 6, 10, 13, 15, 10, 11, 11, 13, 15, 17 };
-    readonly int[] tab_MonsterAttack_17 = { 5, 6, 7, 8, 9, 10, 12, 15, 60 };
-    readonly int[] tab_MonsterAttack_18 = { 60, 6, 7, 8, 9, 10, 12, 15, 18, 21 };
-    readonly int[] tab_MonsterAttack_19 = { 5, 6, 7, 8, 9, 10, 12, 15, 30, 100 };
-    readonly int[] tab_MonsterAttack_20 = { 100, 6, 7, 12, 15, 30 };
-    readonly int[] tab_MonsterAttack_21 = { 100, 10, 10, 30, 30, 10, 25, 20, 10, 40, 25, 10 };
-    readonly int[] tab_MonsterAttack_22 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_23 = { 100, 2, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_24 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_25 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_26 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_27 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-
-    readonly int[] tab_MonsterAttack_28 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_29 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_30 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_31 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_32 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_33 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_34 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_35 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_36 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_37 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_38 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_39 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-    readonly int[] tab_MonsterAttack_40 = { 100, 6, 7, 8, 9, 10, 12, 15, 30, 5 };
-
-
+    readonly int[] tab_MonsterAttack_00 = { 30, 10, 10, 10, 10};
+    
     public int[] tab_MonsterAttack;
+
 
     public en_MonsterAttackDistanceType[] tab_MonsterAttackDistanceType;
 
@@ -264,52 +113,22 @@ public class Game00_Main : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    //void Start()
-    //{
-    //    Main.statue = en_MainStatue.Game_02;
-    //    Awake0(null);
-    //    GameStart();
-    //}
+
 #endif
 
     public void Awake0(Main mainn)
     {
         main = mainn;
-
-        GameObject prefab;
-        if (Main.COMPANY_NUM == 5)
-        {
-            // game97
-            Destroy(gameUI.transform.parent.gameObject);
-            prefab = Resources.Load<GameObject>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Prefab/Game00UI");
-            GameObject obj = Instantiate(prefab, transform);
-            Canvas canvas = obj.GetComponent<Canvas>();
-            gameUI = obj.GetComponentInChildren<Game00_GameUI>();
-            for (int i = 0; i < player.Length; i++)
-            {
-                player[i].canvas = canvas;
-                player[i].playerUI = gameUI.playerUI[i];
-            }
-        }
-        if (Main.COMPANY_NUM == 8)
-        {
-            string path = "Company_" + Main.COMPANY_NUM.ToString("D2") + "/Sound/GunFire";
-            audioClip_Fire = Resources.Load<AudioClip>(path);
-            Debug.Log("Sound: " + path + ": " + audioClip_Fire);
-        }
-
         for (int i = 0; i < player.Length; i++)
         {
             player[i].Awake0(this, i);
         }
-        // v02.27
         tab_MonsterAttackDistanceType = new en_MonsterAttackDistanceType[monster_Prefab.Length];
         for (int i = 0; i < tab_MonsterAttackDistanceType.Length; i++)
         {
             tab_MonsterAttackDistanceType[i] = monster_Prefab[i].GetComponent<Game00_Monster>().attackDistanceType;
         }
         // 加载怪
-
         roadPos = road_Obj.GetComponentsInChildren<Game00_RoadPos>();
         bossRoadPos = bossRoad_Obj.GetComponentsInChildren<Game00_RoadPos>();
         maxRoadPos = roadPos.Length;
@@ -321,7 +140,6 @@ public class Game00_Main : MonoBehaviour
         {
             bossRoadPos[i].Init(this);
         }
-        //
         monsterNearAttackPos = nearAttackGroup.GetComponentsInChildren<Game00_MonsterTempPos>();
 
 #if UNITY_EDITOR
@@ -346,9 +164,6 @@ public class Game00_Main : MonoBehaviour
             playerNum = 1;
         }
         audioSource_BackG.Stop();
-        //#if UNITY_EDITOR
-        //        Set.setVal.GameTime = 3;
-        //#endif
         switch (Main.statue)
         {
             case en_MainStatue.Game_00:
@@ -357,8 +172,6 @@ public class Game00_Main : MonoBehaviour
                 tab_MonsterAttack = tab_MonsterAttack_00;
                 tab_FreshDcTime = tab_FreshDcTime_00;
                 break;
-            
-
         }
 
         gameUI.GameStart();
@@ -387,8 +200,6 @@ public class Game00_Main : MonoBehaviour
         roadPosIndex = 0;
 #if UNITY_EDITOR
         roadPosIndex = index;
-        //roadPosIndex = 55;
-        //roadPosIndex = 23;
 #endif
         navMeshAgent_MainCar.enabled = false;
         navMeshObstacle_MainCar.enabled = false;
@@ -404,6 +215,7 @@ public class Game00_Main : MonoBehaviour
             }
             else
             {
+
                 player[i].GameStart(en_StartType.Reset);        //第一次开始
             }
         }
@@ -448,9 +260,7 @@ public class Game00_Main : MonoBehaviour
 
     void Update()
     {
-        //
-
-        ShakeRun(); //抖动？
+        ShakeRun(); //抖动
         //
         DamageRun();
         //
@@ -624,6 +434,11 @@ public class Game00_Main : MonoBehaviour
 
 
             case en_Game00_Sta.Move:
+                if (navMeshAgent_MainCar.velocity.magnitude > 3)
+                {
+                    zhcr.ChangeStatue(Zhcr_Sta.Run);
+                }
+
                 if (monsterBoss != null && monsterBoss.statue == en_MonsterSta.Die)
                 {
                     ChangeStatue(en_Game00_Sta.Boss);
@@ -708,58 +523,6 @@ public class Game00_Main : MonoBehaviour
                     }
                     ChangeStatue(en_Game00_Sta.End);
                 }
-                #region 针对bossRoad的开启
-                //else
-                //{
-                //    moveTargetPos = monsterBoss.centerPos.transform.position;
-                //    players_Obj.transform.rotation = Quaternion.RotateTowards(players_Obj.transform.rotation, Quaternion.LookRotation(moveTargetPos - players_Obj.transform.position, Vector3.up), 10 * Time.deltaTime);
-
-                //    // 5秒后开启bossRoad_Obj
-                //    if (runTime < 5)
-                //    {
-                //        runTime += Time.deltaTime;
-                //        if (runTime >= 5)
-                //        {
-                //            delayTime = 0;
-                //            stopTime = 0;
-                //            bossRoad_Obj.SetActive(true);
-                //        }
-                //    }
-                //    //这里执行bossRoad开启后的行为，bossRoad会刷怪，但不会移动
-                //    else if (bossRoadPosIndex < bossRoadPos.Length)
-                //    {
-                //        if (delayTime > 0)
-                //        {
-                //            delayTime -= Time.deltaTime;
-                //            break;
-                //        }
-                //        //过完延迟之后再执行下面
-                //        if (bossRoadPos[bossRoadPosIndex].minMonsterNum > 0)
-                //        {
-                //            if (monsterAliveNum > bossRoadPos[bossRoadPosIndex].minMonsterNum)
-                //            {
-                //                break;
-                //            }
-                //        }
-                //        else if (stopTime > 0)
-                //        {
-                //            stopTime -= Time.deltaTime;
-                //            break;
-                //        }
-                //        // 下一站
-                //        bossRoadPos[bossRoadPosIndex].gameObject.SetActive(false);
-                //        bossRoadPosIndex++;
-                //        if (bossRoadPosIndex >= bossRoadPos.Length)
-                //        {
-                //            bossRoadPosIndex = 0;
-                //        }
-                //        delayTime = bossRoadPos[bossRoadPosIndex].delayTime;
-                //        stopTime = bossRoadPos[bossRoadPosIndex].stopTime;
-                //        bossRoadPos[bossRoadPosIndex].gameObject.SetActive(true);
-                //        bossRoadPos[bossRoadPosIndex].Init(this);
-                //    }
-                //}
-                #endregion
 
                 #region bossRoad不会让玩家沿着路径点移动，这里加
                 //bossRoad不会让玩家沿着路径点移动，这里加
@@ -783,23 +546,6 @@ public class Game00_Main : MonoBehaviour
                 {
                     break;
                 }
-
-
-                ////如果下一条路是boss，并且玩家得到了keycard,那么走向下一个路，打boss
-                //if (roadPos[roadPosIndex].nextIsBossRoad)
-                //{
-                //    if (getKeyCard && monsterAliveNum <= roadPos[roadPosIndex].minMonsterNum)
-                //    {
-
-                //        ChangeStatue(en_Game00_Sta.Move);
-                //    }
-                //    else
-                //    {
-                //        break;
-                //    }
-
-
-                //}
 
                 //minMonsterNum为最多留下的怪才能走
                 if (roadPos[roadPosIndex].minMonsterNum > 0)
@@ -849,7 +595,7 @@ public class Game00_Main : MonoBehaviour
                 runTime += Time.deltaTime;
                 if (runTime >= 3)
                 {
-                    int no = Main.IndexOfArry(Main.tab_GameId, (int)Main.statue);
+                    int no = Main.IndexOfArray(Main.tab_GameId, (int)Main.statue);
                     if (no >= 0)
                     {
                         Main.gamePassed[no] = true;    // 游戏过关
@@ -862,7 +608,7 @@ public class Game00_Main : MonoBehaviour
                 runTime += Time.deltaTime;
                 if (runTime >= 8)
                 {
-                    int no = Main.IndexOfArry(Main.tab_GameId, (int)Main.statue);
+                    int no = Main.IndexOfArray(Main.tab_GameId, (int)Main.statue);
                     if (no >= 0)
                     {
                         Main.gamePassed[no] = true;    // 游戏过关
@@ -876,11 +622,7 @@ public class Game00_Main : MonoBehaviour
                 runTime += Time.deltaTime;
                 if (runTime >= 0.3f)
                 {
-                    //Game97_Main.gameOver.Awake0(this);
-                    //Game97_Main.gameOver.gameObject.SetActive(true);
-                    //GameOver();
                     ChangeStatue(en_Game00_Sta.OutEnd);
-                    //Game97_Main.gameOver.Awake0(this);
                     main.ChangeScene(en_MainStatue.Game_97);
                 }
                 break;
@@ -909,6 +651,8 @@ public class Game00_Main : MonoBehaviour
                 {
                     stopTimeOut = 180;
                 }
+                if (zhcr != null && zhcr.statue == Zhcr_Sta.Run)
+                    zhcr.ChangeStatue(Zhcr_Sta.Idle);
                 break;
 
             case en_Game00_Sta.Move:
@@ -917,15 +661,8 @@ public class Game00_Main : MonoBehaviour
                 break;
 
             case en_Game00_Sta.Boss:
-                // 关闭刷怪
-                //roadPos[roadPosIndex].gameObject.SetActive(false);
                 bossRoad_Obj.SetActive(true);
                 bossRoadPosIndex = 0;
-                // bossRoadPos[bossRoadPosIndex].gameObject.SetActive(true);
-                //for (int i = 1; i < bossRoadPos.Length; i++)
-                //{
-                //    bossRoadPos[i].gameObject.SetActive(false);
-                //}
                 break;
 
             case en_Game00_Sta.End:
@@ -936,8 +673,6 @@ public class Game00_Main : MonoBehaviour
 
             case en_Game00_Sta.Pass:
                 gameUI.image_Pass.gameObject.SetActive(true);
-
-                //audioSource_GamePass.Play();
                 break;
 
             case en_Game00_Sta.Out:
@@ -953,9 +688,7 @@ public class Game00_Main : MonoBehaviour
         // 看目标
         if (lookAtPosObj != null)
         {
-            // Debug.Log(players_Obj.transform.position);
             players_Obj.transform.rotation = Quaternion.RotateTowards(players_Obj.transform.rotation, Quaternion.LookRotation(lookAtPosObj.transform.position + lookAtOffsetPos - players_Obj.transform.position), rotateSpeed * Time.deltaTime);
-            //players_Obj.transform.rotation = Quaternion.Slerp(players_Obj.transform.rotation, Quaternion.LookRotation(lookAtPosObj.transform.position + lookAtOffsetPos - players_Obj.transform.position), 3 * Time.deltaTime);
         }
     }
     public void RunStop(float time)
@@ -994,6 +727,8 @@ public class Game00_Main : MonoBehaviour
         {
             navMeshAgent_MainCar.SetDestination(navMeshAgent_MainCar.transform.position);
             navMeshAgent_MainCar.enabled = false;
+            //if (zhcr != null && zhcr.statue == Zhcr_Sta.Run)
+            //    zhcr.ChangeStatue(Zhcr_Sta.Idle);
             navTime = 0.3f;
         }
         else if (navTime <= 0)
@@ -1053,7 +788,6 @@ public class Game00_Main : MonoBehaviour
         lookAtPosObj = roadPos[roadPosIndex].lookAtPosObj;
         rotateSpeed = roadPos[roadPosIndex].rotateSpeed;
         navMeshAgent_MainCar.speed = roadPos[roadPosIndex].moveSpeed;
-        //Main.Log("roadPosIndex: " + roadPosIndex);
         moveTargetPos = roadPos[roadPosIndex].transform.position;
     }
     public void AttackPlayers(Game00_Monster mon, int attackvalue)
@@ -1105,7 +839,6 @@ public class Game00_Main : MonoBehaviour
         //BOSS
         monsterBoss = boss;
         gameUI.boss_HP_Obj.SetActive(true);
-        //ChangeStatue(en_Game00_Sta.Boss);
     }
     public void Update_BossHP_Pos(Vector3 pos)
     {
@@ -1115,55 +848,8 @@ public class Game00_Main : MonoBehaviour
 
     public float freshDcTime;
     public static float[] monsterFreshDcTime = new float[MAX_MONSTER];
-    public readonly float[] tab_FreshDcTime_00 = { 2, 2, 2, 2, 4, 10, 10, 10, 15, 1000 };   // 鱼
-    public readonly float[] tab_FreshDcTime_01 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000, 2, 2, 2 };   // 鬼子
-    public readonly float[] tab_FreshDcTime_02 = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1000 };   //
-    public readonly float[] tab_FreshDcTime_03 = { 2, 2, 2, 2, 2, 2, 2, 2, 2 };   //
-    public readonly float[] tab_FreshDcTime_04 = { .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 1000 };   //
-    public readonly float[] tab_FreshDcTime_05 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_06 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_07 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_08 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_09 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_10 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_11 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_12 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_13 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_14 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_15 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_16 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000, 2 };   //
-    public readonly float[] tab_FreshDcTime_17 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_18 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_19 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_20 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };   //
-    public readonly float[] tab_FreshDcTime_21 = { .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 1000 };
-    public readonly float[] tab_FreshDcTime_22 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_23 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
+    public readonly float[] tab_FreshDcTime_00 = { 2, 2, 2, 2, 2 }; 
 
-    public readonly float[] tab_FreshDcTime_24 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-
-    public readonly float[] tab_FreshDcTime_25 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-
-    public readonly float[] tab_FreshDcTime_26 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_27 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-
-    public readonly float[] tab_FreshDcTime_28 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_29 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_30 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_31 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_32 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_33 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_34 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_35 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_36 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_37 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_38 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_39 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-    public readonly float[] tab_FreshDcTime_40 = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000 };
-
-
-
-    //
     public float[] tab_FreshDcTime;
     //清零
     void FreshMonsterControl()
@@ -1317,40 +1003,6 @@ public class Game00_Main : MonoBehaviour
             }
         }
 
-
-        //int[] idBuf = new int[MAX_DAOJU_ID];
-        //int len = 0;
-        //for (int i = 0; i < idBuf.Length; i++) {
-        //    if (daoJuDcTime[i] <= 0) {
-        //        idBuf[len] = i;
-        //        len++;
-        //    }
-        //}
-        //if (len > 0) {
-        //    if (Random.Range(0, 1000) < 300) {
-        //        int id = idBuf[Random.Range(0, len)];
-
-        //        switch (id) {
-        //        case DAOJU_ID_BLOOD:
-        //            daoJuDcTime[id] = 15;
-        //            daoJuTotalDcTime = 5;
-        //            return en_Game00_DaoJuType.BloodPag;
-        //        case DAOJU_ID_DAODAN:
-        //            daoJuDcTime[id] = 15;
-        //            daoJuTotalDcTime = 5;
-        //            return en_Game00_DaoJuType.DaoDan;
-        //        case DAOJU_ID_SANDAN:
-        //            daoJuDcTime[id] = 15;
-        //            daoJuTotalDcTime = 5;
-        //            return en_Game00_DaoJuType.SanDan;
-        //        case DAOJU_ID_BOX:
-        //            daoJuDcTime[id] = 20;
-        //            daoJuTotalDcTime = 5;
-        //            return en_Game00_DaoJuType.Box;
-        //        }
-        //    }
-        //}
-
         return en_Game00_DaoJuType.None;
     }
 
@@ -1490,15 +1142,7 @@ public class Game00_Main : MonoBehaviour
 #if DEBUG_TEST
     void OnGUI()
     {
-        //GUI.color = Color.yellow;
 
-        //GUI.Label(new Rect(550, 100, 200, 20), "MonsterNum: " + monsterNum.ToString());
-        //GUI.Label(new Rect(550, 130, 200, 20), "RemainNum: " + monsterRemainNum.ToString());
-        //GUI.Label(new Rect(550, 160, 200, 20), "AliveNum: " + monsterAliveNum.ToString());
-        ////GUI.Label(new Rect(550, 270, 200, 20), "monsterFreshPosId: " + gamePlay.monsterFreshPosId_Out.ToString());
-
-        //GUI.Label(new Rect(550, 200, 200, 20), "BloodDcTime: " + daoJuDcTime[DAOJU_ID_BLOOD].ToString());
-        //GUI.Label(new Rect(550, 220, 200, 20), "DaoDanDcTime: " + daoJuDcTime[DAOJU_ID_DAODAN].ToString());
     }
 #endif
 
@@ -1514,7 +1158,7 @@ public class Game00_Main : MonoBehaviour
 
         if (bossRunRoads.Length == attackPosEachRoad.Length)
         {
-            for (int i = 0;i < bossRunRoads.Length; i++)
+            for (int i = 0; i < bossRunRoads.Length; i++)
             {
                 bossFarAttackPosByRoads.Dictionary.Add(bossRunRoads[i],
                     attackPosEachRoad[i].GetComponentsInChildren<Transform>(false)

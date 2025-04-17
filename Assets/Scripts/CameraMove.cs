@@ -42,7 +42,7 @@ public class CameraMove : MonoBehaviour
         while (dis >= 0.05f || rota != transform.rotation)
         {
             dis = Vector3.Distance(this.transform.position, pos);
-            transform.position = Vector3.MoveTowards(transform.position, pos, 0.05f);
+            transform.position = Vector3.MoveTowards(transform.position, pos, 0.1f);
             rota = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(rot - transform.position), 1f);
             shanke = shanke < 0.3 ? shanke + 0.05f : 0.2f;
             game00_Main.ShakeStart(shanke, 1000);
@@ -104,10 +104,10 @@ public class CameraMove : MonoBehaviour
                 rota = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(rot - transform.position), 1f);
                 yield return new WaitForFixedUpdate();
                 transform.rotation = Quaternion.Lerp(transform.rotation, rota, 0.5f);
-                
+
             }
 
-            AudioSource.PlayClipAtPoint(spawnSource,transform.position);
+            AudioSource.PlayClipAtPoint(spawnSource, transform.position);
 
             yield return new WaitForSeconds(delayTime);
 
@@ -128,7 +128,7 @@ public class CameraMove : MonoBehaviour
             {
                 Debug.LogError("有bug,镜头对焦时不应该可以切枪");
             }
-                
+
         }
     }
 

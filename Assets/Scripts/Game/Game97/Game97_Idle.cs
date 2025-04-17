@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 enum en_IdleSta
@@ -12,6 +10,7 @@ enum en_IdleSta
 public class Game97_Idle : MonoBehaviour
 {
     public Image image_Logo;
+    public float image_Logo_Y = 220;
     public Image image_CompanyLogo;
     public Game_VideoPlayer gameVideoPlayer;
 
@@ -22,58 +21,18 @@ public class Game97_Idle : MonoBehaviour
     string[] tab_StrLanguage = { "cn", "en" };
     public void Awake0(Game97_Main game)
     {
-        //print("111");
-        game97_Main = game;
-        //
-        if (Main.COMPANY_NUM == 8)
-        {
-            GameObject prefab = Resources.Load<GameObject>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Loading/Image_Tips");
-            GameObject obj = Instantiate(prefab, transform);
-            obj.transform.localPosition = new Vector3(0, -270);
-            obj.transform.localScale = Vector3.one * 0.5f;
-        }
+        game97_Main = game; 
     }
 
     public void GameStart()
     {
         IO.Init();
-        if(language != Set.setVal.Language)
+        if (language != Set.setVal.Language)
         {
             language = Set.setVal.Language;
         }
         image_CompanyLogo.gameObject.SetActive(false);
-        if (Main.COMPANY_NUM == 7)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(94, -138, 0);
-        }
-        else if (Main.COMPANY_NUM == 6)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(156, 66, 0);
-        }
-        else if (Main.COMPANY_NUM == 4)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(0, 100, 0);
-        }
-        else if (Main.COMPANY_NUM == 8)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(0, 100, 0);
-        }
-        else if (Main.COMPANY_NUM == 11)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(0, 100, 0);
-        }
-        else if (Main.COMPANY_NUM == 12)
-        {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game97/Idle/BackG");
-            image_Logo.transform.localPosition = new Vector3(0, 100, 0);
-            image_CompanyLogo.sprite = Resources.Load<Sprite>("Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Loading/Logo/Logo_" + tab_StrLanguage[language]);
-            image_CompanyLogo.gameObject.SetActive(true);
-        }
+        
         ChangeStatue(en_IdleSta.ShowVideo);
     }
 
@@ -98,15 +57,7 @@ public class Game97_Idle : MonoBehaviour
         }
         if (Main.COMPANY_NUM == 3)
         {
-            image_Logo.transform.localPosition = new Vector3(0, 220 - 30f * Mathf.Sin(runTime * 3f));
-        }
-        else if (Main.COMPANY_NUM == 11)
-        {
-            image_Logo.transform.localPosition = new Vector3(0, 150 - 30f * Mathf.Sin(runTime * 3f));
-        }
-        else if (Main.COMPANY_NUM == 12)
-        {
-            image_Logo.transform.localPosition = new Vector3(0, 150 - 30f * Mathf.Sin(runTime * 3f));
+            image_Logo.transform.localPosition = new Vector3(0, image_Logo_Y - 30f * Mathf.Sin(runTime * 3f));
         }
     }
 
@@ -118,14 +69,10 @@ public class Game97_Idle : MonoBehaviour
         gameVideoPlayer.gameObject.SetActive(false);
         switch (statue)
         {
+            //展示待机页面视频
             case en_IdleSta.ShowVideo:
-                //gameVideoPlayer.gameObject.SetActive(true);
-                // image_Logo.transform.localPosition = new Vector3(-353, 125, 0);
-                // image_Logo.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 break;
             case en_IdleSta.ShowLogo:
-                //image_Logo.transform.localPosition = new Vector3(0, 52, 0);
-                // image_Logo.transform.localScale = new Vector3(1, 1, 1);
                 break;
         }
     }

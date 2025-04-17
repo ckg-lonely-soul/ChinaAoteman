@@ -400,11 +400,11 @@ namespace UnityEngine.Rendering.PostProcessing
 #if UNITY_2019_3_OR_NEWER
             if(SystemInfo.usesLoadStoreActions)
 #else
-            if(Application.isMobilePlatform)
+            if (Application.isMobilePlatform)
 #endif
             {
                 Rect r = m_Camera.rect;
-                if(Mathf.Abs(r.x) > 1e-6f || Mathf.Abs(r.y) > 1e-6f || Mathf.Abs(1.0f - r.width) > 1e-6f || Mathf.Abs(1.0f - r.height) > 1e-6f)
+                if (Mathf.Abs(r.x) > 1e-6f || Mathf.Abs(r.y) > 1e-6f || Mathf.Abs(1.0f - r.width) > 1e-6f || Mathf.Abs(1.0f - r.height) > 1e-6f)
                 {
                     Debug.LogWarning("When used with builtin render pipeline, Postprocessing package expects to be used on a fullscreen Camera.\nPlease note that using Camera viewport may result in visual artefacts or some things not working.", m_Camera);
                 }
@@ -676,7 +676,7 @@ namespace UnityEngine.Rendering.PostProcessing
             return GetBundle<T>().CastSettings<T>();
         }
 
-		/// <summary>
+        /// <summary>
         /// Utility method to bake a multi-scale volumetric obscurance map for the current camera.
         /// This will only work if ambient occlusion is active in the scene.
         /// </summary>

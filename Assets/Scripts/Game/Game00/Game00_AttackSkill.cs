@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum en_AttackSkillSta
 {
@@ -21,6 +19,9 @@ public class Game00_AttackSkill : MonoBehaviour
     public AudioSource audioSource_AttackStart;     // 攻击(开始)声音
     public AudioSource audioSource_AttackEffect;    // 攻击(生效)声音
     public string animStartName = "Attack";
+    public ParticleSystem[] particleSystems;
+    public int particleIndex;
+    public bool allParticlePlay;
     public string animEndName = "AttackEnd";
     public bool isFarAttack;
     public bool effectByAnimation = true;       // 攻击生效以动画为标准，否则以时间
@@ -99,19 +100,18 @@ public class Game00_AttackSkill : MonoBehaviour
                             ChangeStatue(en_AttackSkillSta.Over);
                         }
                     }
+                    else if (isContinueAttack)
+                    {
+                        // 持续攻击
+                        ChangeStatue(en_AttackSkillSta.Run);
+                    }
                     else
-                        if (isContinueAttack)
-                        {
-                            // 持续攻击
-                            ChangeStatue(en_AttackSkillSta.Run);
-                        }
-                        else
-                        {
-                            // 单次攻击
-                            //attackEffected = true;
-                            AttackEffct();
-                            ChangeStatue(en_AttackSkillSta.Over);
-                        }
+                    {
+                        // 单次攻击
+                        //attackEffected = true;
+                        AttackEffct();
+                        ChangeStatue(en_AttackSkillSta.Over);
+                    }
                 }
                 break;
             case en_AttackSkillSta.Run:
@@ -168,6 +168,16 @@ public class Game00_AttackSkill : MonoBehaviour
                 animator.Play(animEndName);
                 break;
             case en_AttackSkillSta.End:
+
+                if (particleSystems != null)
+                {
+                    for (int i = 0; i < particleSystems.Length; i++)
+                    {
+                        particleSystems[i].Stop();
+                        particleSystems[i].gameObject.SetActive(false);
+                    }
+                }
+
                 gameObject.SetActive(false);
                 break;
         }
@@ -185,6 +195,7 @@ public class Game00_AttackSkill : MonoBehaviour
         if (effectByAnimation)
         {
             posId = animEvent.firePosId;
+            particleIndex = animEvent.particleIndex;
         }
         else
         {
@@ -250,6 +261,24 @@ public class Game00_AttackSkill : MonoBehaviour
         {
             gameMain.RunStop(stopMainCarTime);
         }
+
+        if (particleSystems != null)
+        {
+            if (allParticlePlay)
+            {
+                for (int i = 0; i < particleSystems.Length; i++)
+                {
+                    particleSystems[i].gameObject.SetActive(true);
+                    particleSystems[i].Play();
+                }
+            }
+            else
+            {
+                particleSystems[particleIndex].gameObject.SetActive(true);
+                particleSystems[particleIndex].Play();
+            }
+        }
+
         //
         gameMain.AttackPlayers(monster, attackValue);
         //

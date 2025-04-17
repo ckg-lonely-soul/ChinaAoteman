@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Game00_GameUI : MonoBehaviour
@@ -12,34 +10,31 @@ public class Game00_GameUI : MonoBehaviour
     public Image image_Demo;
     public Image image_BossWarning;
     public Image image_BossWarning2;
-	public Image image_BossWarning3;
+    public Image image_BossWarning3;
     public Image image_Pass;
-	public Image image_Pass2;
+    public Image image_Pass2;
     public Num num_TotalMonsterNum;
     public Num num_RemainMonsterNum;
-
-    //修改
     Sprite[] sprite_BossWarning;
+
     // Use this for initialization
     public void GameStart()
     {
         string strCompany;
-        if (Main.COMPANY_NUM == 5) {
-            strCompany = "Company_" + Main.COMPANY_NUM.ToString("D2") + "/Pic/Game00/";
-        } else {
-            strCompany = "Company_00/Common/";
-        }
+
+        strCompany = "Company_00/Common/";
+
         if (Set.setVal.Language == (int)en_Language.Chinese)
         {
-			sprite_BossWarning = Resources.LoadAll<Sprite>("Company_00/Common/BossWarning_cn");
+            sprite_BossWarning = Resources.LoadAll<Sprite>("Company_00/Common/BossWarning_cn");
             image_Pass2.sprite = Resources.Load<Sprite>(strCompany + "GamePass/0000");
-			image_BossWarning3.sprite = Resources.Load<Sprite>("Company_00/Common/BossWarning_cn/0000");
+            image_BossWarning3.sprite = Resources.Load<Sprite>("Company_00/Common/BossWarning_cn/0000");
         }
         else
         {
-			sprite_BossWarning = Resources.LoadAll<Sprite>("Company_00/Common/BossWarning_en");
+            sprite_BossWarning = Resources.LoadAll<Sprite>("Company_00/Common/BossWarning_en");
             image_Pass2.sprite = Resources.Load<Sprite>(strCompany + "GamePass/0001");
-			image_BossWarning3.sprite = Resources.Load<Sprite>("Company_00/Common/BossWarning_en/0000");
+            image_BossWarning3.sprite = Resources.Load<Sprite>("Company_00/Common/BossWarning_en/0000");
         }
 
         image_BossWarning.sprite = Instantiate(sprite_BossWarning[0]) as Sprite;
@@ -49,8 +44,7 @@ public class Game00_GameUI : MonoBehaviour
         image_Damage.gameObject.SetActive(false);
         image_Demo.gameObject.SetActive(false);
         image_BossWarning.gameObject.SetActive(false);
-		image_Pass.gameObject.SetActive(false);
-        //image_Pass2.gameObject.SetActive(false);
+        image_Pass.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game97\\game97_gameover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game97\\game97_gameover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game00\\game00_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game00\\game00_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game00\\game00_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game00\\game00_main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game97\\game97_gamesel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game97\\game97_gamesel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|f:\\unity\\unity projects\\2018\\aoteman_china\\chinaaoteman\\assets\\scripts\\game\\game00\\game00_playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3E92EF98-64E0-A4BE-92CD-960715A40CE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\game00\\game00_playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Game00_Player.cs",
               "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Player.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game00\\Game00_Player.cs",
               "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Player.cs",
               "RelativeToolTip": "Assets\\Scripts\\Game\\Game00\\Game00_Player.cs",
-              "ViewState": "AgIAABICAAAAAAAAAAAawB8CAAC/AAAAAAAAAA==",
+              "ViewState": "AgIAAHQDAAAAAAAAAAAcwHsDAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T09:58:15.627Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Game00_Main.cs",
-              "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Game00\\Game00_Main.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T09:49:37.928Z",
+              "WhenOpened": "2025-04-17T01:20:01.392Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Game97_GameSel.cs",
-              "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
-              "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Game97\\Game97_GameSel.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAABgwEQAAAAaAAAAAAAAAA==",
+              "Title": "Game00_PlayerUI.cs",
+              "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_PlayerUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game00\\Game00_PlayerUI.cs",
+              "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game00\\Game00_PlayerUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Game00\\Game00_PlayerUI.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAA/wC0BAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T08:03:13.132Z",
+              "WhenOpened": "2025-04-17T01:19:43.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game97_GameOver.cs",
+              "DocumentMoniker": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game97\\Game97_GameOver.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Game97\\Game97_GameOver.cs",
+              "ToolTip": "F:\\Unity\\Unity Projects\\2018\\Aoteman_China\\ChinaAoteman\\Assets\\Scripts\\Game\\Game97\\Game97_GameOver.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Game97\\Game97_GameOver.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAA4wH4AAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T01:15:16.893Z",
               "EditorCaption": ""
             }
           ]

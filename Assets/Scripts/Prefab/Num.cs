@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-
+//显示格式
 public enum en_NumMode
 {
     NUM_M_Middle = 0,
@@ -16,7 +14,7 @@ public class Num : MonoBehaviour
     const int NUM_SIZE = 10;
     // 
     public string spritePath;           //0-9 数字的路径
-                                        // 显示格式:
+
     public en_NumMode mode = en_NumMode.NUM_M_Middle;
     public int minBitNum = 0;
     public bool sizeHandle = false;
@@ -55,6 +53,7 @@ public class Num : MonoBehaviour
     {
         boundsChar = charid;
     }
+
     public float UpdateShow(int dat)
     {
         // 首次加载

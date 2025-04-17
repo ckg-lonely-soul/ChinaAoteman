@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 
 namespace UnityEngine.Rendering.PostProcessing
 {
@@ -85,7 +85,7 @@ namespace UnityEngine.Rendering.PostProcessing
                 prop.overrideState = state;
             }
         }
-        
+
         /// <summary>
         /// Returns <c>true</c> if the effect is currently enabled and supported.
         /// </summary>
