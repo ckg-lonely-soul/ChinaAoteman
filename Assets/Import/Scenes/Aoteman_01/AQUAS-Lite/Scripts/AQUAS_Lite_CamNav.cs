@@ -24,7 +24,7 @@ namespace AQUAS_Lite //Original from Unity, changed namespace to avoid conflicts
 
         void Update()
         {
-            if (!freeLookEnabled)
+            if(!freeLookEnabled)
                 return;
 
             m_yaw = (m_yaw + lookSpeed * Input.GetAxis("Mouse X")) % 360f;

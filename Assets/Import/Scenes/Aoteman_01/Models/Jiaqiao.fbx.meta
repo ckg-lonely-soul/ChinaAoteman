@@ -71,7 +71,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Jiaqiao_03","Jiaqiao_04","Jiaqiao_01","Jiaqiao_02"],"padding":[49,76,36,40],"unwrapper":[0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

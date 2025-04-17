@@ -66,7 +66,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Qiaodun","Qiaoti","Tiejia"],"padding":[99,52,256],"unwrapper":[0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:

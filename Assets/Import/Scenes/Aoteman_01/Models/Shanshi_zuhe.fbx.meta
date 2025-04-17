@@ -69,7 +69,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["Shanshi_06","Shanshi_01","Shanshi_04","Shanshi_03","Shanshi_02","Shanshi_05"],"padding":[153,151,65,65,91,69],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 1
   meshes:
